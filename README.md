@@ -1,10 +1,10 @@
 # CG 2022/2023
 
-## Group T0xG0y
+## Group T08G08
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
-| Jane Doe         | 201901011 | ...                |
+| Bruna Marques      | 202007191 | up202007191@edu.fe.up.pt               |
+| Lia Vieira        | 202005042 | up202005042@edu.fe.up.pt                |
 
 ----
 

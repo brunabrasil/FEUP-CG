@@ -1,12 +1,10 @@
 # CG 2022/2023
 
-## Group T0xG0y
+## Group T08G08
 
 ## TP 1 Notes
 
-(add your main observations/remarks about your experiments here, in a bulleted list, and remove this line. Some examples below)
+In exercises 1 and 2, we accomplished all tasks without difficulties.
 
-- In exercise 1 we observed X
-- In exercise 2 we had difficulties in Y
 
-![Screenshot 1](screenshots/cg-t0xgxx-tp1-n.png)
+![Screenshot 1](screenshots/CG-t08g08-tp1-1.png)

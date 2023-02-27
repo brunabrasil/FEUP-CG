@@ -5,6 +5,7 @@ import { MyParallelogram } from "./MyParallelogram.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MyTriangleBig } from "./MyTriangleBig.js";
 import { MyTangram } from "./MyTangram.js";
+import { MyUnitCube } from "./MyUnitCube.js";
 import {CGFappearance} from '../lib/CGF.js';
 
 /**
@@ -32,6 +33,7 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.tangram = new MyTangram(this);
+    this.cube = new MyUnitCube(this);
 
     // this.diamond = new MyDiamond(this);
     // this.triangle = new MyTriangle(this);
@@ -48,6 +50,7 @@ export class MyScene extends CGFscene {
     // this.displayTriangleBig = true;
     // this.displayTriangleSmall = false;
     this.displayTangram = true;
+    this.displayCube = true;
   }
   initLights() {
     this.lights[0].setPosition(15, 2, 5, 1);
@@ -111,9 +114,24 @@ export class MyScene extends CGFscene {
 
     if (this.displayTangram) {
         this.pushMatrix();
+        this.translate(4, 0.05, 5);
+        this.rotate(-Math.PI/2, 1, 0, 0);
         this.tangram.display();
         this.popMatrix();
     }
+
+    if (this.displayCube) {
+      this.pink = new CGFappearance(this);
+      this.pink.setColor(219/255,112/255,147/255,4);
+
+        this.pushMatrix();
+        this.scale(8,8,8);
+        this.translate(0.5, -0.5, 0.5);
+        this.pink.apply();
+        this.cube.display();
+        this.popMatrix();
+    } 
+  
     
     // ---- END Primitive drawing section
 

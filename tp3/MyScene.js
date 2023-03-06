@@ -132,9 +132,9 @@ export class MyScene extends CGFscene {
 
         // Madeira
         this.material4 = new CGFappearance(this);
-        this.material4.setAmbient(0.3, 0.2, 0.1, 1.0);
-        this.material4.setDiffuse(0.6, 0.4, 0.2, 1.0);
-        this.material4.setSpecular(0.1, 0.1, 0.1, 1.0);
+        this.material4.setAmbient(0.6, 0.3, 0, 1.0);
+        this.material4.setDiffuse(193/255,154/255,107/255);
+        this.material4.setSpecular(0.1,0.1,0.1,1);
         this.material4.setShininess(10.0);
 
         // Custom material (can be changed in the interface)

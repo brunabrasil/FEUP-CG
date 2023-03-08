@@ -4,6 +4,7 @@ import { MyCone } from "./MyCone.js";
 import { MyPlane } from "./MyPlane.js";
 import { MyTangram } from "./MyTangram.js";
 import { MyUnitCube } from "./MyUnitCube.js";
+import { MyPrism } from "./MyPrism.js";
 
 /**
 * MyScene
@@ -34,11 +35,12 @@ export class MyScene extends CGFscene {
         this.pyramid = new MyPyramid(this, 3, 1);
         this.tangram = new MyTangram(this);
         this.cube = new MyUnitCube(this);
+        this.prism = new MyPrism(this, 6, 4);
         
-        this.objects = [this.plane, this.pyramid, this.cone, this.tangram, this.cube];
+        //this.objects = [this.plane, this.pyramid, this.cone, this.tangram, this.cube, this.prism];
 
         // Labels and ID's for object selection on MyInterface
-        this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Tangram': 3, 'Unit Cube': 4};
+        //this.objectIDs = {'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Tangram': 3, 'Unit Cube': 4, 'Prism': 5};
 
         //Other variables connected to MyInterface
         this.selectedObject = 0;
@@ -144,7 +146,7 @@ export class MyScene extends CGFscene {
             'Ambient': '#0000ff',
             'Diffuse': '#ff0000',
             'Specular': '#000000',
-            'Shininess': 10,
+            'Shininess': 10
             
         }
         this.customMaterial = new CGFappearance(this);
@@ -175,21 +177,30 @@ export class MyScene extends CGFscene {
             this.axis.display();
 
         // ---- BEGIN Primitive drawing section
-
+        
         this.materials[this.selectedMaterial].apply();
 
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         
         if (this.displayNormals)
-            this.objects[this.selectedObject].enableNormalViz();
+            this.prism.enableNormalViz();
+            //this.objects[this.selectedObject].enableNormalViz();
         else
-            this.objects[this.selectedObject].disableNormalViz();
+            this.prism.disableNormalViz();
+            //this.objects[this.selectedObject].disableNormalViz();
         
-        this.objects[this.selectedObject].display();
+        //this.objects[this.selectedObject].display();
         this.popMatrix();
         // ---- END Primitive drawing section
 
         this.setGlobalAmbientLight(this.globalAmbientLight, this.globalAmbientLight, this.globalAmbientLight, 1.0);
+
+
+        this.pushMatrix();
+        this.rotate(3*(Math.PI)/2, 1, 0, 0);
+        this.prism.display();
+        this.scene.popMatrix();
+        
     }
 }

@@ -8,4 +8,4 @@
 
 ![Screenshot 2](screenshots/cg-t08g08-tp3-2.png)
 
-![Screenshot 2](screenshots/cg-t08g08-tp3-3.png)
+![Screenshot 3](screenshots/cg-t08g08-tp3-3.png)

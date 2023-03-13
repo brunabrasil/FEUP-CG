@@ -18,9 +18,10 @@ export class MyPrism extends CGFobject {
         this.indices = [];
         this.normals = [];
 
-        var ang = 0;
-        var alphaAng = 2*Math.PI/this.slices;
+        
         for(var j = 0; j < this.stacks; j++){
+            var ang = 0;
+            var alphaAng = 2*Math.PI/this.slices;
             for(var i = 0; i < this.slices; i++){
                 // All vertices have to be declared for a given face
                 // even if they are shared with others, as the normals 
@@ -31,16 +32,16 @@ export class MyPrism extends CGFobject {
                 var ca=Math.cos(ang);
                 var caa=Math.cos(ang+alphaAng);
 
-                this.vertices.push(ca,sa,0);
-                this.vertices.push(caa, saa, 0);
-                this.vertices.push(ca,sa, this.stacks);
-                this.vertices.push(caa, saa, this.stacks);
+                this.vertices.push(ca,sa, j/this.stacks);
+                this.vertices.push(caa, saa, j/this.stacks);
+                this.vertices.push(ca,sa, (j+1)/this.stacks);
+                this.vertices.push(caa, saa, (j+1)/this.stacks);
 
                 //v0=4*1 v1=4*1+1 v2=4*1+2 v3=4*1+3
-                this.indices.push(4*i, (4*i+1), (4*i+2), 
-                (4*i+1), (4*i+3), (4*i+2),
-                (4*i+2), (4*i+3), (4*i+1),
-                (4*i+2), (4*i+1), (4*i));
+                this.indices.push(4*i+(this.slices*j*4), (4*i+1)+(this.slices*j*4), (4*i+2)+(this.slices*j*4),
+                (4*i+2)+(this.slices*j*4), (4*i+1)+(this.slices*j*4), (4*i+3)+(this.slices*j*4),
+                (4*i+2)+(this.slices*j*4), (4*i+3)+(this.slices*j*4), (4*i+1)+(this.slices*j*4),
+                (4*i+2)+(this.slices*j*4), (4*i+1)+(this.slices*j*4), (4*i)+(this.slices*j*4));
 
                 // triangle normal computed by cross product of two edges
                 var ca2 = Math.cos(alphaAng/2);

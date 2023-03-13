@@ -7,3 +7,5 @@
 ![Screenshot 1](screenshots/cg-t08g08-tp3-1.png)
 
 ![Screenshot 2](screenshots/cg-t08g08-tp3-2.png)
+
+![Screenshot 2](screenshots/cg-t08g08-tp3-3.png)

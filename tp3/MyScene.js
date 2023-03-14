@@ -5,6 +5,7 @@ import { MyPlane } from "./MyPlane.js";
 import { MyTangram } from "./MyTangram.js";
 import { MyUnitCube } from "./MyUnitCube.js";
 import { MyPrism } from "./MyPrism.js";
+import { MyCylinder } from "./MyCylinder.js";
 
 /**
 * MyScene
@@ -36,6 +37,7 @@ export class MyScene extends CGFscene {
         this.tangram = new MyTangram(this);
         this.cube = new MyUnitCube(this);
         this.prism = new MyPrism(this, 8, 20);
+        this.cylinder = new MyCylinder(this, 8, 20);
         
         //this.objects = [this.plane, this.pyramid, this.cone, this.tangram, this.cube, this.prism];
 
@@ -184,10 +186,10 @@ export class MyScene extends CGFscene {
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         
         if (this.displayNormals)
-            this.prism.enableNormalViz();
+            this.cylinder.enableNormalViz();
             //this.objects[this.selectedObject].enableNormalViz();
         else
-            this.prism.disableNormalViz();
+            this.cylinder.disableNormalViz();
             //this.objects[this.selectedObject].disableNormalViz();
         
         //this.objects[this.selectedObject].display();
@@ -199,7 +201,7 @@ export class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.rotate(3*(Math.PI)/2, 1, 0, 0);
-        this.prism.display();
+        this.cylinder.display();
         this.scene.popMatrix();
         
     }

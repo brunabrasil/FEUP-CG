@@ -1,6 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyQuad } from "./MyQuad.js";
 import { MyTangram } from "./MyTangram.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -29,6 +30,9 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.quad = new MyQuad(this);
         this.tangram = new MyTangram(this);
+        this.cube = new MyUnitCubeQuad(this, [new CGFtexture(this, "./images/mineTop.png"), 
+        new CGFtexture(this, "./images/mineSide.png"),
+        new CGFtexture(this, "./images/mineBottom.png")]);
         //------ Applied Material
 
         //------
@@ -132,10 +136,11 @@ export class MyScene extends CGFscene {
         }
             
 
-
         // ---- BEGIN Primitive drawing section
-        console.log(this.tangram);
-        this.tangram.display();
+        
+        // this.tangram.display();
+        this.cube.display();
+
         // Default texture filtering in WebCGF is LINEAR. 
         // Uncomment next line for NEAREST when magnifying, or 
         // add a checkbox in the GUI to alternate in real time

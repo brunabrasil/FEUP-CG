@@ -1,7 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
-
+import { MyPanorama } from "./MyPanorama.js"
 /**
  * MyScene
  * @constructor
@@ -27,7 +27,8 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this,30);
-    this.sphere = new MySphere(this, 30, 30);
+    this.sphere = new MySphere(this, 30, 30, 50);
+
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -35,15 +36,22 @@ export class MyScene extends CGFscene {
 
     this.enableTextures(true);
 
-  this.texture = new CGFtexture(this, "images/terrain.jpg");
-  this.appearance = new CGFappearance(this);
-  this.appearance.setTexture(this.texture);
-  this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+    this.texture = new CGFtexture(this, "images/terrain.jpg");
+    this.appearance = new CGFappearance(this);
+    this.appearance.setTexture(this.texture);
+    this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-  this.earthText = new CGFtexture(this, "images/earth.jpg");
-  this.earth = new CGFappearance(this);
-  this.earth.setTexture(this.earthText);
-  this.earth.setTextureWrap('REPEAT', 'REPEAT');
+    this.earthText = new CGFtexture(this, "images/earth.jpg");
+    this.earth = new CGFappearance(this);
+    this.earth.setTexture(this.earthText);
+    this.earth.setTextureWrap('REPEAT', 'REPEAT');
+
+    this.panoramaText = new CGFtexture(this, "images/panorama4.jpg");
+    this.panorama4 = new CGFappearance(this);
+    this.panorama4.setTexture(this.panoramaText);
+    this.panorama4.setTextureWrap('REPEAT', 'REPEAT');
+
+    this.panorama = new MyPanorama(this, this.panorama4);
 
   }
   initLights() {
@@ -85,12 +93,10 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
-    this.earth.apply();
-    //this.translate(0,-100,0);
-    //this.scale(400,400,400);
-    //this.rotate(-Math.PI/2.0,1,0,0);
-    // this.plane.display();
-    this.sphere.display();
+    this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
+    //this.earth.apply();
+    //this.plane.display();
+    this.panorama.display();
     this.popMatrix();
 
 

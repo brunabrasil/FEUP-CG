@@ -2,6 +2,9 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } fr
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js"
+import { MyBird } from "./MyBird.js";
+import { MyParallelogram } from "./MyParallelogram.js";
+
 /**
  * MyScene
  * @constructor
@@ -26,8 +29,8 @@ export class MyScene extends CGFscene {
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    this.plane = new MyPlane(this,30);
-    this.sphere = new MySphere(this, 30, 30, 50);
+    //this.sphere = new MySphere(this, 30, 30, 50);
+    this.bird = new MyBird(this);
 
 
     //Objects connected to MyInterface
@@ -51,7 +54,7 @@ export class MyScene extends CGFscene {
     this.panorama4.setTexture(this.panoramaText);
     this.panorama4.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.panorama = new MyPanorama(this, this.panorama4);
+    //this.panorama = new MyPanorama(this, this.panorama4);
 
   }
   initLights() {
@@ -63,7 +66,7 @@ export class MyScene extends CGFscene {
   }
   initCameras() {
     this.camera = new CGFcamera(
-      1.0,
+      0.3,
       0.1,
       1000,
       vec3.fromValues(50, 10, 15),
@@ -93,10 +96,11 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
-    this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
+    //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
     //this.earth.apply();
     //this.plane.display();
-    this.panorama.display();
+    //this.panorama.display();
+    this.bird.display();    
     this.popMatrix();
 
 

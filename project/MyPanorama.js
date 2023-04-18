@@ -15,7 +15,7 @@ export class MyPanorama extends CGFobject {
 
     display(){
 
-        this.sphere = new MySphere(this.scene, 30, 30, 200);
+        this.sphere = new MySphere(this.scene, 30, 30, 200, true);
 
         this.scene.pushMatrix();
         this.text.apply();

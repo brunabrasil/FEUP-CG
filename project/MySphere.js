@@ -11,7 +11,7 @@ export class MySphere extends CGFobject {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
-        this.radius =radius;
+        this.radius = radius;
         this.initBuffers();
     }
     initBuffers() {

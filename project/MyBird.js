@@ -26,6 +26,7 @@ export class MyBird extends CGFobject {
         this.leftEye = new MySphere(this.scene, 30, 30, 0.1, false);
         this.rightEye = new MySphere(this.scene, 30, 30, 0.1, false);
         this.wing = new MyWing(this.scene);
+        this.tail = new MyTriangleSmall(this.scene);
 	}
 
     initMaterials() {
@@ -53,6 +54,7 @@ export class MyBird extends CGFobject {
 	display() {
         this.initMaterials();
 
+        //right wing
         this.scene.pushMatrix();
         //this.scene.rotate((Math.PI)/8,0, 0, 1);
         this.scene.translate(0.5, 0, 0.3, 1);
@@ -60,6 +62,7 @@ export class MyBird extends CGFobject {
         this.wing.display();
         this.scene.popMatrix();
 
+        //left wing
         this.scene.pushMatrix();
         //this.scene.rotate((Math.PI)/8,0, 0, 1);
         this.scene.translate(-0.5, 0, 0.3, 1);
@@ -88,6 +91,7 @@ export class MyBird extends CGFobject {
         this.cylinder.display();
         this.scene.popMatrix(); 
 
+        //right eye
         this.scene.pushMatrix();
         this.scene.translate(0.3, 0.8, 1.4);
         //this.scene.scale(0.3, 0.3, 0.3);
@@ -95,13 +99,23 @@ export class MyBird extends CGFobject {
         this.rightEye.display();
         this.scene.popMatrix(); 
 
-        his.scene.pushMatrix();
+        //left eye
+        this.scene.pushMatrix();
         this.scene.translate(0.3, 0.8, 1.4);
-        this.scene.scale(-1, 0, 0);
+        this.scene.scale(-1, 1, 1);
         this.yellow.apply();
         this.leftEye.display();
         this.scene.popMatrix(); 
 
+        //tail
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI/6,1,0,0);
+        this.scene.translate(0, 0, -0.77);
+        this.scene.rotate(Math.PI/2,1,0,0);
+        this.scene.scale(0.5, 0.75, 1);
+        this.yellow.apply();
+        this.tail.display();
+        this.scene.popMatrix(); 
         
 	}
 

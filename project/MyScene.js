@@ -1,10 +1,8 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
-import { MyPlane } from "./MyPlane.js";
-import { MySphere } from "./MySphere.js";
-import { MyPanorama } from "./MyPanorama.js"
-import { MyBird } from "./MyBird.js";
-import { MyParallelogram } from "./MyParallelogram.js";
 
+import { MyBird } from "./MyBird.js";
+import { MyMovingBird } from "./MyMovingBird.js";
+import { MyPanorama } from "./MyPanorama.js";
 /**
  * MyScene
  * @constructor
@@ -29,13 +27,12 @@ export class MyScene extends CGFscene {
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    //this.sphere = new MySphere(this, 30, 30, 50);
-    this.bird = new MyBird(this);
-
-
+    this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     //Objects connected to MyInterface
     this.displayAxis = true;
-    this.scaleFactor = 1;
+    //this.scaleFactor = 1;
+
+    this.speedFactor = 0.5;
 
     this.enableTextures(true);
 
@@ -54,7 +51,11 @@ export class MyScene extends CGFscene {
     this.panorama4.setTexture(this.panoramaText);
     this.panorama4.setTextureWrap('REPEAT', 'REPEAT');
 
-    //this.panorama = new MyPanorama(this, this.panorama4);
+    this.time = Date.now();
+    this.amplitude = 0.3;
+    this.setUpdatePeriod(20);
+
+    this.panorama = new MyPanorama(this, this.panorama4);
 
   }
   initLights() {
@@ -66,8 +67,8 @@ export class MyScene extends CGFscene {
   }
   initCameras() {
     this.camera = new CGFcamera(
-      0.3,
-      0.1,
+      0.5,
+      0.5,
       1000,
       vec3.fromValues(50, 10, 15),
       vec3.fromValues(0, 0, 0)
@@ -78,6 +79,11 @@ export class MyScene extends CGFscene {
     this.setDiffuse(1, 1, 1, 1.0);
     this.setSpecular(1, 1, 1, 1.0);
     this.setShininess(10.0);
+  }
+  update(t) {
+    this.movingBird.update(t);
+    
+    this.checkKeys();
   }
   display() {
     // ---- BEGIN Background, camera and axis setup
@@ -95,15 +101,52 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
-    this.pushMatrix();
     //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-    //this.earth.apply();
-    //this.plane.display();
-    //this.panorama.display();
-    this.bird.display();    
+    this.panorama.display();
+    const now = Date.now();
+    const freq = 1;
+    const period = 2 * Math.PI / freq;
+    const elapsedTime = (now - this.time) / 1000;
+    const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period);    
+    this.pushMatrix();
+    this.translate(0, oscillation*this.amplitude, 0);
+    this.movingBird.display();    
     this.popMatrix();
-
 
     // ---- END Primitive drawing section
   }
+  
+  checkKeys() {
+    var text="Keys pressed: ";
+    var keysPressed=false;
+    // Check for key codes e.g. in https://keycode.info/
+    if (this.gui.isKeyPressed("KeyW")) {
+      text+=" W ";
+      keysPressed=true;
+      this.movingBird.accelerate(1);
+    }
+    if (this.gui.isKeyPressed("KeyS")) {
+      text+=" S ";
+      keysPressed=true;
+      this.movingBird.accelerate(-1);
+    }
+    if (this.gui.isKeyPressed("KeyA")) {
+      text+=" A ";
+      keysPressed=true;
+      this.movingBird.turn(1);
+    }
+    if (this.gui.isKeyPressed("KeyD")) {
+      text+=" D ";
+      keysPressed=true;
+      this.movingBird.turn(-1);
+    }
+    if (this.gui.isKeyPressed("KeyR")) {
+      text+=" R ";
+      keysPressed=true;
+      this.movingBird.reset();
+    }
+    if (keysPressed)
+      console.log(text);
+    }
+  
 }

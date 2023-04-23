@@ -3,6 +3,7 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } fr
 import { MyBird } from "./MyBird.js";
 import { MyMovingBird } from "./MyMovingBird.js";
 import { MyPanorama } from "./MyPanorama.js";
+import { MyTerrain } from "./MyTerrain.js";
 /**
  * MyScene
  * @constructor
@@ -28,6 +29,7 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
+    this.terrain = new MyTerrain(this);
     //Objects connected to MyInterface
     this.displayAxis = true;
     //this.scaleFactor = 1;
@@ -36,10 +38,10 @@ export class MyScene extends CGFscene {
 
     this.enableTextures(true);
 
-    this.texture = new CGFtexture(this, "images/terrain.jpg");
-    this.appearance = new CGFappearance(this);
-    this.appearance.setTexture(this.texture);
-    this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+    // this.texture = new CGFtexture(this, "images/terrain.jpg");
+    // this.appearance = new CGFappearance(this);
+    // this.appearance.setTexture(this.texture);
+    // this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
     this.earthText = new CGFtexture(this, "images/earth.jpg");
     this.earth = new CGFappearance(this);

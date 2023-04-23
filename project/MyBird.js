@@ -7,6 +7,7 @@ import { MyCone } from "./MyCone.js";
 import { MyCylinder } from "./MyCylinder.js";
 import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 import { MyWing } from "./MyWing.js";
+import { MyTail } from "./MyTail.js";
 
 
 /**
@@ -20,13 +21,14 @@ export class MyBird extends CGFobject {
 
         this.smallTriangle = new MyTriangleSmall(this.scene);
         this.parallelogram = new MyParallelogram(this.scene);
-        this.sphere = new MySphere(this.scene, 30, 30, 0.5, false);
+        this.head = new MySphere(this.scene, 30, 30, 0.5, false);
+        this.body = new MySphere(this.scene, 30, 30, 0.5, false);
         this.pyramid = new MyPyramid(this.scene, 30, 30);
-        this.cylinder = new MyCylinder(this.scene, 30, 30);
         this.leftEye = new MySphere(this.scene, 30, 30, 0.1, false);
         this.rightEye = new MySphere(this.scene, 30, 30, 0.1, false);
         this.wing = new MyWing(this.scene);
-        this.tail = new MyTriangleSmall(this.scene);
+        //this.tail = new MyTriangleSmall(this.scene);
+        this.tail = new MyTail(this.scene);
 	}
 
     initMaterials() {
@@ -70,10 +72,10 @@ export class MyBird extends CGFobject {
         this.wing.display();
         this.scene.popMatrix();
 
-        //Sphere
+        //Head
         this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 1.1);
-        this.sphere.display();
+        this.head.display();
         this.scene.popMatrix();
 
         //Bico
@@ -85,10 +87,12 @@ export class MyBird extends CGFobject {
         this.pyramid.display();
         this.scene.popMatrix();
             
+        //Body
         this.scene.pushMatrix();
-        this.scene.scale(0.5, 0.5, 1);
+        this.scene.scale(1, 1, 1.5);
+        this.scene.translate(0, 0, 0.3);
         this.blue.apply();
-        this.cylinder.display();
+        this.body.display();
         this.scene.popMatrix(); 
 
         //right eye
@@ -112,7 +116,7 @@ export class MyBird extends CGFobject {
         this.scene.rotate(Math.PI/6,1,0,0);
         this.scene.translate(0, 0, -0.77);
         this.scene.rotate(Math.PI/2,1,0,0);
-        this.scene.scale(0.5, 0.75, 1);
+        //this.scene.scale(0.5, 0.75, 1);
         this.yellow.apply();
         this.tail.display();
         this.scene.popMatrix(); 

@@ -1,11 +1,9 @@
-import {CGFobject, CGFappearance} from "../lib/CGF.js";
+import {CGFobject, CGFappearance, CGFtexture} from "../lib/CGF.js";
 import { MyParallelogram } from "./MyParallelogram.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MySphere } from "./MySphere.js";
 import { MyPyramid } from "./MyPyramid.js";
-import { MyCone } from "./MyCone.js";
 import { MyCylinder } from "./MyCylinder.js";
-import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 import { MyWing } from "./MyWing.js";
 import { MyTail } from "./MyTail.js";
 
@@ -15,6 +13,7 @@ import { MyTail } from "./MyTail.js";
  * @constructor
  * @param scene - Reference to MyScene object
  */
+
 export class MyBird extends CGFobject {
 	constructor(scene) {
 		super(scene);
@@ -29,6 +28,16 @@ export class MyBird extends CGFobject {
         this.wing = new MyWing(this.scene);
         //this.tail = new MyTriangleSmall(this.scene);
         this.tail = new MyTail(this.scene);
+
+        this.time = Date.now();
+        this.amplitude = 0.3;
+
+        this.vel = 1; //se ele tiver parado, as asas mexem ne?
+
+        this.featherText = new CGFtexture(this.scene, "images/feather-red.jpg");
+        this.bodyAppearance = new CGFappearance(this.scene);
+        this.bodyAppearance.setTexture(this.featherText);
+        this.bodyAppearance.setTextureWrap('REPEAT');
 	}
 
     initMaterials() {
@@ -51,22 +60,31 @@ export class MyBird extends CGFobject {
         this.black.setDiffuse(0, 0, 0, 1);
         this.black.setSpecular(0, 0, 1, 1);
         this.black.setShininess(10.0);
+
     }
 	
 	display() {
         this.initMaterials();
+        console.log('aaa', this.vel);
+        const now = Date.now();
+        const freq = 1;
+        const period = (2 * Math.PI / freq);
+        const elapsedTime = ((now - this.time) / 1000) * this.vel;
+        const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period); 
 
         //right wing
         this.scene.pushMatrix();
-        //this.scene.rotate((Math.PI)/8,0, 0, 1);
+
+        this.scene.rotate(oscillation * Math.PI/3 / 4, 0, 0, 1);
         this.scene.translate(0.5, 0, 0.3, 1);
         this.scene.scale(0.25, 0.5, 0.25);
+
         this.wing.display();
         this.scene.popMatrix();
 
         //left wing
         this.scene.pushMatrix();
-        //this.scene.rotate((Math.PI)/8,0, 0, 1);
+        this.scene.rotate(oscillation * -Math.PI/3 / 4, 0, 0, 1);
         this.scene.translate(-0.5, 0, 0.3, 1);
         this.scene.scale(-0.25, 0.5, 0.25);
         this.wing.display();
@@ -91,14 +109,13 @@ export class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.scene.scale(1, 1, 1.5);
         this.scene.translate(0, 0, 0.3);
-        this.blue.apply();
+        this.bodyAppearance.apply();
         this.body.display();
         this.scene.popMatrix(); 
 
         //right eye
         this.scene.pushMatrix();
         this.scene.translate(0.3, 0.8, 1.4);
-        //this.scene.scale(0.3, 0.3, 0.3);
         this.black.apply();
         this.rightEye.display();
         this.scene.popMatrix(); 
@@ -122,7 +139,6 @@ export class MyBird extends CGFobject {
         this.scene.popMatrix(); 
         
 	}
-
 
     enableNormalViz() {
         this.parallelogram.enableNormalViz();

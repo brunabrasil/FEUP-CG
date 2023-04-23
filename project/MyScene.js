@@ -4,6 +4,7 @@ import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js"
 import { MyBird } from "./MyBird.js";
 import { MyParallelogram } from "./MyParallelogram.js";
+import { MyTerrain } from "./MyTerrain.js";
 
 /**
  * MyScene
@@ -31,6 +32,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     //this.sphere = new MySphere(this, 30, 30, 50);
     this.bird = new MyBird(this);
+    this.terrain = new MyTerrain(this);
 
 
     //Objects connected to MyInterface
@@ -39,10 +41,10 @@ export class MyScene extends CGFscene {
 
     this.enableTextures(true);
 
-    this.texture = new CGFtexture(this, "images/terrain.jpg");
-    this.appearance = new CGFappearance(this);
-    this.appearance.setTexture(this.texture);
-    this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+    // this.texture = new CGFtexture(this, "images/terrain.jpg");
+    // this.appearance = new CGFappearance(this);
+    // this.appearance.setTexture(this.texture);
+    // this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
     this.earthText = new CGFtexture(this, "images/earth.jpg");
     this.earth = new CGFappearance(this);
@@ -100,6 +102,7 @@ export class MyScene extends CGFscene {
     //this.earth.apply();
     //this.plane.display();
     //this.panorama.display();
+    //this.terrain.display();
     this.bird.display();    
     this.popMatrix();
 

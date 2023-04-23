@@ -29,13 +29,13 @@ export class MyTerrain extends CGFobject {
         this.appearance = new CGFappearance(scene);
         this.appearance.loadTexture("images/terrain.jpg");
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
-        // this.appearance.setTexture(this.textureTerrain);
-        // this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        //this.appearance.setTexture(this.textureTerrain);
+        //this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
     }
 
     display() {
-        //this.scene.setActiveShader(this.terrainShader);
+        this.scene.setActiveShader(this.terrainShader);
         this.textureHeightmap.bind(1);
         this.altimetry.bind(2);
 

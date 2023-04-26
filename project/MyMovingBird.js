@@ -16,37 +16,31 @@ export class MyMovingBird extends CGFobject {
     this.rotationRight = false;
     this.bird = bird;
     this.scaleFactor = 1;
-    this.rotationOffset = 0.05; //NAO PERCEBO
   }
   update(t) {
     this.scene.speedFactor = t;
-    this.position[0] += this.speed * Math.sin(this.orientationAngle);
-    this.position[2] += this.speed * Math.cos(this.orientationAngle);
-
-
-    this.bird.vel = 1 + this.speed; // NAO PERCEBO COMO FAZER DEPENDER
+    this.position[0] += this.speed * Math.sin(this.orientationAngle); //x
+    this.position[2] += this.speed * Math.cos(this.orientationAngle);//z
   }
   turn(val) {
     val < 0 ? this.rotationRight = true : this.rotationLeft = true;
-    val *= this.rotationOffset;
     this.orientationAngle += val;
   }
   accelerate(val) {
-    val *= (1 / 500); // NAO PERCEBO SPEEDFACTOR NAO FUNCIONA
     if(this.speed + val < 0){
       this.speed = 0;
-      this.bird.vel = 1;
+      this.scene.speedFactor = 1;
     }
     else {
       this.speed += val;
     }
-
 
   }
   reset() {
       this.position = [0,3,0];
       this.orientationAngle = 0;
       this.speed = 0;
+      this.scene.speedFactor = 1;
   }
   display() {
     this.scene.pushMatrix()

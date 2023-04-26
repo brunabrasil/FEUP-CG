@@ -17,7 +17,6 @@ import { MyTail } from "./MyTail.js";
 export class MyBird extends CGFobject {
 	constructor(scene) {
 		super(scene);
-
         this.smallTriangle = new MyTriangleSmall(this.scene);
         this.parallelogram = new MyParallelogram(this.scene);
         this.head = new MySphere(this.scene, 30, 30, 0.5, false);
@@ -26,18 +25,20 @@ export class MyBird extends CGFobject {
         this.leftEye = new MySphere(this.scene, 30, 30, 0.1, false);
         this.rightEye = new MySphere(this.scene, 30, 30, 0.1, false);
         this.wing = new MyWing(this.scene);
-        //this.tail = new MyTriangleSmall(this.scene);
         this.tail = new MyTail(this.scene);
 
         this.time = Date.now();
         this.amplitude = 0.3;
 
-        this.vel = 1; //se ele tiver parado, as asas mexem ne?
-
         this.featherText = new CGFtexture(this.scene, "images/feather-red.jpg");
         this.bodyAppearance = new CGFappearance(this.scene);
         this.bodyAppearance.setTexture(this.featherText);
         this.bodyAppearance.setTextureWrap('REPEAT');
+
+        this.eyeText = new CGFtexture(this.scene, "images/chicken-eye.jpeg");
+        this.eyeAppearance = new CGFappearance(this.scene);
+        this.eyeAppearance.setTexture(this.eyeText);
+        //this.eyeAppearance.setTextureWrap('REPEAT');
 	}
 
     initMaterials() {
@@ -61,17 +62,24 @@ export class MyBird extends CGFobject {
         this.black.setSpecular(0, 0, 1, 1);
         this.black.setShininess(10.0);
 
+        //Red
+        this.red = new CGFappearance(this.scene);
+        this.red.setAmbient(0.5,0,0, 1);
+        this.red.setDiffuse(0, 0, 0, 1);
+        this.red.setSpecular(1, 0, 0, 1);
+        this.red.setShininess(10.0);
+
+
     }
 	
 	display() {
+ 
         this.initMaterials();
-        console.log('aaa', this.vel);
         const now = Date.now();
         const freq = 1;
         const period = (2 * Math.PI / freq);
-        const elapsedTime = ((now - this.time) / 1000) * this.vel;
-        const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period); 
-
+        const elapsedTime = ((now - this.time) / 1000)/2;
+        const oscillation = Math.sin(elapsedTime * 2 * this.scene.speedFactor + Math.PI / period); 
         //right wing
         this.scene.pushMatrix();
 
@@ -90,9 +98,24 @@ export class MyBird extends CGFobject {
         this.wing.display();
         this.scene.popMatrix();
 
+        //right eye
+        this.scene.pushMatrix();
+        this.scene.translate(0.3, 0.8, 1.4);
+        this.black.apply();
+        this.rightEye.display();
+        this.scene.popMatrix(); 
+
+        //left eye
+        this.scene.pushMatrix();
+        this.scene.translate(-0.3, 0.8, 1.4);
+        this.black.apply();
+        this.leftEye.display();
+        this.scene.popMatrix(); 
+
         //Head
         this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 1.1);
+        this.red.apply();
         this.head.display();
         this.scene.popMatrix();
 
@@ -102,6 +125,7 @@ export class MyBird extends CGFobject {
         this.scene.scale(0.2, 0.2, 0.3);
         this.scene.rotate((Math.PI)/2, 1, 0, 0);
         this.yellow.apply();
+        
         this.pyramid.display();
         this.scene.popMatrix();
             
@@ -113,28 +137,13 @@ export class MyBird extends CGFobject {
         this.body.display();
         this.scene.popMatrix(); 
 
-        //right eye
-        this.scene.pushMatrix();
-        this.scene.translate(0.3, 0.8, 1.4);
-        this.black.apply();
-        this.rightEye.display();
-        this.scene.popMatrix(); 
-
-        //left eye
-        this.scene.pushMatrix();
-        this.scene.translate(0.3, 0.8, 1.4);
-        this.scene.scale(-1, 1, 1);
-        this.yellow.apply();
-        this.leftEye.display();
-        this.scene.popMatrix(); 
 
         //tail
         this.scene.pushMatrix();
+
         this.scene.rotate(Math.PI/6,1,0,0);
         this.scene.translate(0, 0, -0.77);
         this.scene.rotate(Math.PI/2,1,0,0);
-        //this.scene.scale(0.5, 0.75, 1);
-        this.yellow.apply();
         this.tail.display();
         this.scene.popMatrix(); 
         

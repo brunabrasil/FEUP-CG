@@ -1,4 +1,4 @@
-import {CGFobject, CGFappearance} from "../lib/CGF.js";
+import {CGFobject, CGFappearance, CGFtexture} from "../lib/CGF.js";
 import { MyParallelogram } from "./MyParallelogram.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 
@@ -14,6 +14,11 @@ export class MyWing extends CGFobject {
 
         this.smallTriangle = new MyTriangleSmall(this.scene);
         this.parallelogram = new MyParallelogram(this.scene);
+        
+        this.featherText = new CGFtexture(this.scene, "images/feather-red.jpg");
+        this.bodyAppearance = new CGFappearance(this.scene);
+        this.bodyAppearance.setTexture(this.featherText);
+        this.bodyAppearance.setTextureWrap('REPEAT');
 	}
 
     initMaterials() {

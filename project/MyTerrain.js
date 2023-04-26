@@ -8,7 +8,7 @@ import { MyPlane } from './MyPlane.js';
  */
 export class MyTerrain extends CGFobject {
 	constructor(scene) {
-		super(scene);
+        super(scene);
 
         this.plane = new MyPlane(scene, 30);
 
@@ -17,13 +17,14 @@ export class MyTerrain extends CGFobject {
 	}
 
     initShaders(scene) {
-		//this.terrainShader = new CGFshader(scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
-        //this.terrainShader.setUniformsValues({ terrainMap: 1, offset: 0.2, multiplier: 0.3 });
+	this.terrainShader = new CGFshader(scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
+        this.terrainShader.setUniformsValues({ terrainMap: 1, offset: 0.2, multiplier: 0.3 });
     }
 
 
     initMaterials(scene) { 
-		this.textureHeightmap = new CGFtexture(scene, "images/heightmap.jpg");
+
+	this.textureHeightmap = new CGFtexture(scene, "images/heightmap.jpg");
         this.altimetry = new CGFtexture(scene, "images/altimetry.png");
 
         this.appearance = new CGFappearance(scene);
@@ -35,7 +36,7 @@ export class MyTerrain extends CGFobject {
     }
 
     display() {
-        //this.scene.setActiveShader(this.terrainShader);
+        this.scene.setActiveShader(this.terrainShader);
         this.textureHeightmap.bind(1);
         this.altimetry.bind(2);
 

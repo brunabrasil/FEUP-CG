@@ -4,8 +4,6 @@ import { MyBird } from "./MyBird.js";
 import { MyMovingBird } from "./MyMovingBird.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyTerrain } from "./MyTerrain.js";
-import { MyBilboard } from "./MyBilboard.js";
-
 /**
  * MyScene
  * @constructor
@@ -32,7 +30,6 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     this.terrain = new MyTerrain(this);
-    //this.bilboard = new MyBilboard(this);
     //Objects connected to MyInterface
     this.displayAxis = true;
     //this.scaleFactor = 1;
@@ -41,8 +38,7 @@ export class MyScene extends CGFscene {
 
     this.enableTextures(true);
 
-    this.terrainAltimetry = new CGFtexture(this, "images/altimetry.png");
-    this.terrainTextureMap = new CGFtexture(this, "images/heightmap.jpg");
+    // this.texture = new CGFtexture(this, "images/terrain.jpg");
     // this.appearance = new CGFappearance(this);
     // this.appearance.setTexture(this.texture);
     // this.appearance.setTextureWrap('REPEAT', 'REPEAT');
@@ -64,7 +60,6 @@ export class MyScene extends CGFscene {
     this.panorama = new MyPanorama(this, this.panorama4);
 
   }
-
   initLights() {
     this.lights[0].setPosition(15, 0, 5, 1);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -72,8 +67,6 @@ export class MyScene extends CGFscene {
     this.lights[0].enable();
     this.lights[0].update();
   }
-
-
   initCameras() {
     this.camera = new CGFcamera(
       0.5,
@@ -94,32 +87,7 @@ export class MyScene extends CGFscene {
     
     this.checkKeys();
   }
-
-  initTerrainTextures() {
-   
-    this.defaultTerrainTexture = [
-        new CGFtexture(this, 'textures/terrain/altimetry.png'),
-        new CGFtexture(this, 'textures/terrain/heightmap.jpg')
-    ];
-
-
-    this.terrainTextures = [this.defaultTerrainTexture];
-
-    this.terrainTextureIds = 'Default': 0
-  };
-
-    /**
-   * Method for updating terrain's textures using the interface selected texture
-   */
-  updateTerrainTextures() {
-    this.terrain.updateTextures(this.terrainTextures[this.selectedTerrainTexture]);
-  }
-}
-
-
-
-
-display() {
+  display() {
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -136,9 +104,7 @@ display() {
     // ---- BEGIN Primitive drawing section
 
     //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-    //this.panorama.display();
-    this.bilboard.display();
-    this.terrain.display();
+    this.panorama.display();
     const now = Date.now();
     const freq = 1;
     const period = 2 * Math.PI / freq;
@@ -146,8 +112,10 @@ display() {
     const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period);    
     this.pushMatrix();
     this.translate(0, oscillation*this.amplitude, 0);
-    this.movingBird.display();    
+    this.movingBird.display();  
     this.popMatrix();
+
+    this.terrain.display();  
 
     // ---- END Primitive drawing section
   }
@@ -183,8 +151,6 @@ display() {
     }
     if (keysPressed)
       console.log(text);
-
-  }
-
-
-
+    }
+  
+}

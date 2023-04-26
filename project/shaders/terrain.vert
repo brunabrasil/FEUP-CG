@@ -5,17 +5,21 @@ attribute vec2 aTextureCoord;
 uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
-uniform float timeFactor;
 
 varying vec2 vTextureCoord;
-uniform sampler2D waterMap;
+uniform sampler2D heightmap;
+
+uniform float normScale;
 
 void main() {
-  vTextureCoord = aTextureCoord;
+    vec3 offset = vec3(0.0, 0.0, 0.0);
 
-  vec4 color = texture2D(terrainMap, aTextureCoord);
+    vTextureCoord = aTextureCoord;
 
-  gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offsetNormal*0.05, 1.0);
+    vec4 filter = texture2D(heightmap, vTextureCoord);
 
-  
+    offset = aVertexNormal * 0.2 * filter.b;
+
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
+    
 }

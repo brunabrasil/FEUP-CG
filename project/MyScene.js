@@ -114,8 +114,10 @@ export class MyScene extends CGFscene {
     const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period);    
     this.pushMatrix();
     this.translate(0, oscillation*this.amplitude, 0);
-    this.movingBird.display();    
+    this.movingBird.display();  
     this.popMatrix();
+
+    this.terrain.display();  
 
     // ---- END Primitive drawing section
   }

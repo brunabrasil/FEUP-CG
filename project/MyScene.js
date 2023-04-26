@@ -112,6 +112,7 @@ export class MyScene extends CGFscene {
     const period = 2 * Math.PI / freq;
     const elapsedTime = (now - this.time) / 1000;
     const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period);    
+    
     this.pushMatrix();
     this.translate(0, oscillation*this.amplitude, 0);
     this.movingBird.display();  
@@ -135,7 +136,13 @@ export class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyS")) {
       text+=" S ";
       keysPressed=true;
-      this.acceleration -= 0.1;
+      if(this.acceleration > 0){
+        this.acceleration -= 0.1;
+      }
+      else {
+        this.acceleration = 0;
+
+      }
       this.movingBird.accelerate(-0.1);
     }
     if (this.gui.isKeyPressed("KeyA")) {

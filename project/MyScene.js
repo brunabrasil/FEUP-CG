@@ -6,6 +6,7 @@ import { MyPanorama } from "./MyPanorama.js";
 import { MySphere } from "./MySphere.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyNest } from "./MyNest.js";
+import { MyBirdEgg } from "./MyBirdEgg.js";
 /**
  * MyScene
  * @constructor
@@ -33,9 +34,9 @@ export class MyScene extends CGFscene {
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     this.terrain = new MyTerrain(this);
     this.nest = new MyNest(this, 10, 7);
+    this.egg = new MyBirdEgg(this, 10, 10, 1, 1, 1.7);
     //Objects connected to MyInterface
     this.displayAxis = true;
-    //this.scaleFactor = 1;
 
     this.speedFactor = 1;
     this.acceleration = 0;
@@ -62,6 +63,11 @@ export class MyScene extends CGFscene {
     this.nestText = new CGFappearance(this);
     this.nestText.setTexture(this.nText);
     this.nestText.setTextureWrap('REPEAT', 'REPEAT');
+
+    this.eText = new CGFtexture(this, "images/egg.png");
+    this.eggText = new CGFappearance(this);
+    this.eggText.setTexture(this.eText);
+    this.eggText.setTextureWrap('REPEAT', 'REPEAT');
 
     this.time = Date.now();
     this.amplitude = 0.3;
@@ -121,6 +127,13 @@ export class MyScene extends CGFscene {
     const elapsedTime = (now - this.time) / 1000;
     const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period);    
     
+    this.pushMatrix();
+    this.translate(3,0,0);
+    this.scale(0.3, 0.3, 0.3)
+    this.eggText.apply();
+    this.egg.display();  
+    this.popMatrix();
+
 
     this.pushMatrix();
     this.rotate(Math.PI, 0, 0, 1);

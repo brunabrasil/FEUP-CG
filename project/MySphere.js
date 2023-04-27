@@ -1,10 +1,11 @@
 import {CGFobject} from '../lib/CGF.js';
 /**
-* MyPrism
+* MySphere
 * @constructor
  * @param scene - Reference to MyScene object
  * @param slices - number of divisions around the Y axis
  * @param stacks - number of divisions along the Y axis
+ * @param pan - if it is a panorama or not
 */
 export class MySphere extends CGFobject {
     constructor(scene, slices, stacks, radius, pan) {

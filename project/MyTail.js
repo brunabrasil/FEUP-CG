@@ -1,4 +1,4 @@
-import {CGFobject, CGFappearance} from "../lib/CGF.js";
+import {CGFobject, CGFappearance, CGFtexture} from "../lib/CGF.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 
 /**
@@ -13,6 +13,10 @@ export class MyTail extends CGFobject {
         this.left = new MyTriangleSmall(this.scene);
         this.middle = new MyTriangleSmall(this.scene);
         this.right = new MyTriangleSmall(this.scene);
+        this.featherText = new CGFtexture(this.scene, "images/feather-red.jpg");
+        this.bodyAppearance = new CGFappearance(this.scene);
+        this.bodyAppearance.setTexture(this.featherText);
+        this.bodyAppearance.setTextureWrap('REPEAT');
 	}
 
     initMaterials() {
@@ -34,14 +38,13 @@ export class MyTail extends CGFobject {
         this.scene.rotate(-(Math.PI)/6, 0, 0, 1);
         this.scene.scale(0.25, 1, 1);
         //this.scene.rotate((Math.PI)/2, 1, 0, 0);
-        this.yellow.apply();
+        //this.yellow.apply();
         //this.left.display();
         this.scene.popMatrix();
             
         //Middle
         this.scene.pushMatrix();
         this.scene.scale(0.25, 1, 1);
-        this.yellow.apply();
         this.middle.display();
         this.scene.popMatrix(); 
 

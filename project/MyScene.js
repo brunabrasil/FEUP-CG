@@ -37,10 +37,12 @@ export class MyScene extends CGFscene {
     this.displayAxis = true;
     //this.scaleFactor = 1;
 
-    this.speedFactor = 0.5;
+    this.speedFactor = 1;
+    this.acceleration = 0;
 
     this.enableTextures(true);
 
+    this.setUpdatePeriod(50);
     // this.texture = new CGFtexture(this, "images/terrain.jpg");
     // this.appearance = new CGFappearance(this);
     // this.appearance.setTexture(this.texture);
@@ -58,7 +60,6 @@ export class MyScene extends CGFscene {
 
     this.time = Date.now();
     this.amplitude = 0.3;
-    this.setUpdatePeriod(20);
 
     this.panorama = new MyPanorama(this, this.panorama4);
 
@@ -85,10 +86,10 @@ export class MyScene extends CGFscene {
     this.setSpecular(1, 1, 1, 1.0);
     this.setShininess(10.0);
   }
-  update(t) {
-    this.movingBird.update(t);
-    
+  update() {
     this.checkKeys();
+    this.movingBird.update((this.speedFactor + this.acceleration));
+    
   }
   display() {
     // ---- BEGIN Background, camera and axis setup
@@ -108,11 +109,13 @@ export class MyScene extends CGFscene {
 
     //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
     this.panorama.display();
+
     const now = Date.now();
     const freq = 1;
     const period = 2 * Math.PI / freq;
     const elapsedTime = (now - this.time) / 1000;
     const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period);    
+    
     this.pushMatrix();
     this.translate(0, oscillation*this.amplitude, 0);
     this.movingBird.display();  
@@ -131,26 +134,35 @@ export class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyW")) {
       text+=" W ";
       keysPressed=true;
-      this.movingBird.accelerate(1);
+      this.acceleration += 0.1;
+      this.movingBird.accelerate(0.1);
     }
     if (this.gui.isKeyPressed("KeyS")) {
       text+=" S ";
       keysPressed=true;
-      this.movingBird.accelerate(-1);
+      if(this.acceleration > 0){
+        this.acceleration -= 0.1;
+      }
+      else {
+        this.acceleration = 0;
+
+      }
+      this.movingBird.accelerate(-0.1);
     }
     if (this.gui.isKeyPressed("KeyA")) {
       text+=" A ";
       keysPressed=true;
-      this.movingBird.turn(1);
+      this.movingBird.turn(0.1);
     }
     if (this.gui.isKeyPressed("KeyD")) {
       text+=" D ";
       keysPressed=true;
-      this.movingBird.turn(-1);
+      this.movingBird.turn(-0.1);
     }
     if (this.gui.isKeyPressed("KeyR")) {
       text+=" R ";
       keysPressed=true;
+      this.acceleration = 0;
       this.movingBird.reset();
     }
     if (keysPressed)

@@ -34,7 +34,7 @@ export class MyBird extends CGFobject {
 
         this.vel = 1; //se ele tiver parado, as asas mexem ne?
 
-        this.featherText = new CGFtexture(this.scene, "images/feather-red.jpg");
+        this.featherText = new CGFtexture(this.scene, "images/feathers.jpg");
         this.bodyAppearance = new CGFappearance(this.scene);
         this.bodyAppearance.setTexture(this.featherText);
         this.bodyAppearance.setTextureWrap('REPEAT');
@@ -61,11 +61,16 @@ export class MyBird extends CGFobject {
         this.black.setSpecular(0, 0, 1, 1);
         this.black.setShininess(10.0);
 
+        //Orange
+        this.orange = new CGFappearance(this.scene);
+        this.orange.setAmbient(1, 0.5, 0, 1);
+        this.orange.setDiffuse(0, 0, 0, 1);
+        this.orange.setSpecular(1, 0.5, 0, 1);
+        this.orange.setShininess(10.0);
     }
 	
 	display() {
         this.initMaterials();
-        console.log('aaa', this.vel);
         const now = Date.now();
         const freq = 1;
         const period = (2 * Math.PI / freq);
@@ -93,6 +98,7 @@ export class MyBird extends CGFobject {
         //Head
         this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 1.1);
+        this.bodyAppearance.apply();
         this.head.display();
         this.scene.popMatrix();
 
@@ -101,7 +107,7 @@ export class MyBird extends CGFobject {
         this.scene.translate(0, 0.6, 1.5);
         this.scene.scale(0.2, 0.2, 0.3);
         this.scene.rotate((Math.PI)/2, 1, 0, 0);
-        this.yellow.apply();
+        this.orange.apply();
         this.pyramid.display();
         this.scene.popMatrix();
             

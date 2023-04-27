@@ -4,6 +4,8 @@ import { MyBird } from "./MyBird.js";
 import { MyMovingBird } from "./MyMovingBird.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyTerrain } from "./MyTerrain.js";
+import { MyBillboard } from "./MyBillboard.js";
+
 /**
  * MyScene
  * @constructor
@@ -30,6 +32,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     this.terrain = new MyTerrain(this);
+    this.billboard = new MyBillboard(this);
     //Objects connected to MyInterface
     this.displayAxis = true;
     //this.scaleFactor = 1;
@@ -115,7 +118,8 @@ export class MyScene extends CGFscene {
     this.movingBird.display();  
     this.popMatrix();
 
-    this.terrain.display();  
+    //this.terrain.display();  
+    this.billboard.display();
 
     // ---- END Primitive drawing section
   }

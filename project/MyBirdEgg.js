@@ -18,6 +18,16 @@ export class MyBirdEgg extends CGFobject {
     this.radius = radius;
     this.scaleTop = scaleTop;
     this.scaleBottom = scaleBottom;
+    this.x = Math.floor(Math.random() * 5) + 1;
+    this.z = Math.floor(Math.random() * 5) + 1;
+    this.rotationX = Math.floor(Math.random() * 2);
+    this.rotationY = Math.floor(Math.random() * 2);
+    this.rotationZ = Math.floor(Math.random() * 2);
+    console.log(this.rotationX);
+    console.log(this.rotationY);
+
+    console.log(this.rotationZ);
+
     this.initBuffers();
   }
 

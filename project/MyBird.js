@@ -129,6 +129,7 @@ export class MyBird extends CGFobject {
         //Head
         this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 1.1);
+        this.bodyAppearance.apply();
         this.head.display();
         this.scene.popMatrix();
 

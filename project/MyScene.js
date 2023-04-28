@@ -108,7 +108,7 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-    this.panorama.display();
+    //this.panorama.display();
 
     const now = Date.now();
     const freq = 1;
@@ -121,7 +121,9 @@ export class MyScene extends CGFscene {
     this.movingBird.display();  
     this.popMatrix();
 
-    //this.terrain.display();  
+    this.pushMatrix();
+    this.terrain.display(); 
+    this.popMatrix(); 
     this.billboard.display();
 
     // ---- END Primitive drawing section

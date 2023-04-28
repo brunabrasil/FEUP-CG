@@ -18,9 +18,10 @@ export class MyMovingBird extends CGFobject {
     this.scaleFactor = 1;
   }
   update(t) {
-    this.scene.speedFactor = t;
-    this.position[0] += this.speed * Math.sin(this.orientationAngle); //x
-    this.position[2] += this.speed * Math.cos(this.orientationAngle);//z
+    this.scene.speedFactor = t; //isto ta aumentar com o tempo É SUPOSTO NAO PERCEBO
+    this.position[0] += this.speed * Math.sin(this.orientationAngle) * this.scene.speedFactor; //x
+    this.position[2] += this.speed * Math.cos(this.orientationAngle) * this.scene.speedFactor;//z
+    console.log('aakak', this.scene.speedFactor);
   }
   turn(val) {
     val < 0 ? this.rotationRight = true : this.rotationLeft = true;

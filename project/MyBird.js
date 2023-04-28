@@ -30,7 +30,7 @@ export class MyBird extends CGFobject {
         this.time = Date.now();
         this.amplitude = 0.3;
 
-        this.featherText = new CGFtexture(this.scene, "images/feather-red.jpg");
+        this.featherText = new CGFtexture(this.scene, "images/feathers.jpg");
         this.bodyAppearance = new CGFappearance(this.scene);
         this.bodyAppearance.setTexture(this.featherText);
         this.bodyAppearance.setTextureWrap('REPEAT');
@@ -70,6 +70,20 @@ export class MyBird extends CGFobject {
         this.red.setShininess(10.0);
 
 
+        //Red
+        this.red = new CGFappearance(this.scene);
+        this.red.setAmbient(0.5,0,0, 1);
+        this.red.setDiffuse(0, 0, 0, 1);
+        this.red.setSpecular(1, 0, 0, 1);
+        this.red.setShininess(10.0);
+
+
+        //Orange
+        this.orange = new CGFappearance(this.scene);
+        this.orange.setAmbient(1, 0.5, 0, 1);
+        this.orange.setDiffuse(0, 0, 0, 1);
+        this.orange.setSpecular(1, 0.5, 0, 1);
+        this.orange.setShininess(10.0);
     }
 	
 	display() {
@@ -115,7 +129,7 @@ export class MyBird extends CGFobject {
         //Head
         this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 1.1);
-        this.red.apply();
+        this.bodyAppearance.apply();
         this.head.display();
         this.scene.popMatrix();
 
@@ -125,7 +139,6 @@ export class MyBird extends CGFobject {
         this.scene.scale(0.2, 0.2, 0.3);
         this.scene.rotate((Math.PI)/2, 1, 0, 0);
         this.yellow.apply();
-        
         this.pyramid.display();
         this.scene.popMatrix();
             

@@ -7,6 +7,8 @@ import { MySphere } from "./MySphere.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyNest } from "./MyNest.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
+import { MyBillboard } from "./MyBillboard.js";
+
 /**
  * MyScene
  * @constructor
@@ -34,8 +36,8 @@ export class MyScene extends CGFscene {
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     this.terrain = new MyTerrain(this);
     this.nest = new MyNest(this, 10, 7);
-    /* this.egg = new MyBirdEgg(this, 10, 10, 1, 1, 1.7);
-    this.egg2 = new MyBirdEgg(this, 10, 10, 1, 1, 1.7); */
+
+    this.billboard = new MyBillboard(this);
 
     this.eggs = [];
 
@@ -128,7 +130,7 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-    this.panorama.display();
+    //this.panorama.display();
 
     const now = Date.now();
     const freq = 1;
@@ -158,7 +160,10 @@ export class MyScene extends CGFscene {
     this.movingBird.display();  
     this.popMatrix();
 
-    this.terrain.display();  
+    this.pushMatrix();
+    this.terrain.display(); 
+    this.popMatrix(); 
+    this.billboard.display();
 
     // ---- END Primitive drawing section
   }

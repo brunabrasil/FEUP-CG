@@ -34,7 +34,16 @@ export class MyScene extends CGFscene {
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     this.terrain = new MyTerrain(this);
     this.nest = new MyNest(this, 10, 7);
-    this.egg = new MyBirdEgg(this, 10, 10, 1, 1, 1.7);
+    /* this.egg = new MyBirdEgg(this, 10, 10, 1, 1, 1.7);
+    this.egg2 = new MyBirdEgg(this, 10, 10, 1, 1, 1.7); */
+
+    this.eggs = [];
+
+    // Loop to create each egg
+    for (let i = 0; i < 4; i++) {
+      const egg = new MyBirdEgg(this, 10, 10, 1, 1, 1.7);
+      this.eggs.push(egg);
+    }
     //Objects connected to MyInterface
     this.displayAxis = true;
 
@@ -127,14 +136,17 @@ export class MyScene extends CGFscene {
     const elapsedTime = (now - this.time) / 1000;
     const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period);    
     
-    this.pushMatrix();
-    this.translate(3,0,0);
-    this.scale(0.3, 0.3, 0.3)
-    this.eggText.apply();
-    this.egg.display();  
-    this.popMatrix();
 
-
+    this.eggs.forEach(egg => {
+      this.pushMatrix();
+      this.translate(egg.x,0,egg.z);
+      this.scale(0.3, 0.3, 0.3);
+      this.rotate(Math.PI/3, egg.rotationX,egg.rotationY,egg.rotationZ); //que angulo usar? tb altera lo de forma random??
+      this.eggText.apply();
+      egg.display();
+      this.popMatrix();
+    });
+    
     this.pushMatrix();
     this.rotate(Math.PI, 0, 0, 1);
     this.nestText.apply();

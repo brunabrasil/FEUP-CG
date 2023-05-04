@@ -37,7 +37,7 @@ export class MyScene extends CGFscene {
     this.terrain = new MyTerrain(this);
     this.nest = new MyNest(this, 10, 7);
     this.egg = new MyBirdEgg(this, 10, 10, 1, 1, 1.7);
-    this.billboard = new MyBillboard(this);
+    this.billboard = new MyBillboard(this, 3,3,3);
     //Objects connected to MyInterface
     this.displayAxis = true;
 
@@ -137,7 +137,6 @@ export class MyScene extends CGFscene {
     this.egg.display();  
     this.popMatrix();
 
-
     this.pushMatrix();
     this.rotate(Math.PI, 0, 0, 1);
     this.nestText.apply();
@@ -151,8 +150,9 @@ export class MyScene extends CGFscene {
 
     this.pushMatrix();
     this.terrain.display(); 
+    this.panorama.display();
     this.popMatrix(); 
-    this.billboard.display();
+    //this.billboard.display(3,3,3);
 
     // ---- END Primitive drawing section
   }

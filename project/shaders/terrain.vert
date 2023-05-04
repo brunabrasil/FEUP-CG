@@ -5,21 +5,20 @@ attribute vec2 aTextureCoord;
 uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
+uniform float timeFactor;
 
+uniform sampler2D bumpMap;
 varying vec2 vTextureCoord;
-uniform sampler2D heightmap;
-
-uniform float normScale;
+uniform float offset;
+uniform float multiplier;
 
 void main() {
-    vec3 offset = vec3(0.0, 0.0, 0.0);
 
+    vec4 color = texture2D(bumpMap, aTextureCoord);
+    vec3 position = vec3(aVertexPosition.x, aVertexPosition.y, aVertexPosition.z + (color.z - offset) * multiplier);
     vTextureCoord = aTextureCoord;
 
-    vec4 filter = texture2D(heightmap, vTextureCoord);
+    gl_Position = uPMatrix * uMVMatrix * (vec4(position, 1));
 
-    offset = aVertexNormal * 0.2 * filter.r;
-
-    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
-    
+   
 }

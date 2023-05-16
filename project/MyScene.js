@@ -154,7 +154,8 @@ export class MyScene extends CGFscene {
 
     this.pushMatrix();
     this.terrain.display(); 
-    this.panorama.display();
+    //this.panorama.display();
+    this.billboard.display(1,1,2);
     this.popMatrix(); 
     //this.billboard.display(3,3,3);
 

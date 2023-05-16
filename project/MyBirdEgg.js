@@ -1,4 +1,4 @@
-import { CGFobject } from '../lib/CGF.js';
+import { CGFobject, CGFappearance, CGFtexture } from '../lib/CGF.js';
 
 /**
  * MyBirdEgg
@@ -18,8 +18,26 @@ export class MyBirdEgg extends CGFobject {
     this.radius = radius;
     this.scaleTop = scaleTop;
     this.scaleBottom = scaleBottom;
+    this.x = Math.floor(Math.random() * 3) + 1;
+    this.y = 0;
+    this.z = Math.floor(Math.random() * 5) + 1;
+    this.initialPos = [this.x, this.y, this.z];
+    this.rotationX = Math.floor(Math.random() * 2);
+    this.rotationY = Math.floor(Math.random() * 2);
+    this.rotationZ = Math.floor(Math.random() * 2);
+
+    this.materials();
+
     this.initBuffers();
+
   }
+  materials() {
+    
+    this.eText = new CGFtexture(this.scene, "images/egg.png");
+    this.eggText = new CGFappearance(this.scene);
+    this.eggText.setTexture(this.eText);
+    this.eggText.setTextureWrap('REPEAT', 'REPEAT');
+}
 
   initBuffers() {
     this.vertices = [];
@@ -65,6 +83,15 @@ export class MyBirdEgg extends CGFobject {
     this.initGLBuffers();
   }
 
+  display() {
+    this.scene.pushMatrix();
+    this.scene.scale(0.3, 0.3, 0.3);
+    this.scene.rotate(Math.PI/3, this.rotationX, this.rotationY, this.rotationZ); //que angulo usar? tb altera lo de forma random??
+    this.eggText.apply();
+
+    super.display()
+    this.scene.popMatrix()
+  }
   /**
    * Called when user interacts with GUI to change object's complexity.
    * @param {integer} complexity - changes number of slices

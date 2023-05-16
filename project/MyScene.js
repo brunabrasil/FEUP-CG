@@ -35,7 +35,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     this.terrain = new MyTerrain(this);
-    this.nest = new MyNest(this, 10, 7);
+    this.nest = new MyNest(this, 10, 7, 2);
 
     this.billboard = new MyBillboard(this);
 
@@ -54,7 +54,7 @@ export class MyScene extends CGFscene {
 
     this.enableTextures(true);
 
-    this.setUpdatePeriod(60);
+    this.setUpdatePeriod(70);
     // this.texture = new CGFtexture(this, "images/terrain.jpg");
     // this.appearance = new CGFappearance(this);
     // this.appearance.setTexture(this.texture);
@@ -75,13 +75,6 @@ export class MyScene extends CGFscene {
     this.nestText.setTexture(this.nText);
     this.nestText.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.eText = new CGFtexture(this, "images/egg.png");
-    this.eggText = new CGFappearance(this);
-    this.eggText.setTexture(this.eText);
-    this.eggText.setTextureWrap('REPEAT', 'REPEAT');
-
-    this.time = Date.now();
-    this.amplitude = 0.3;
 
     this.panorama = new MyPanorama(this, this.panorama4);
 
@@ -110,6 +103,13 @@ export class MyScene extends CGFscene {
   }
   update() {
     this.checkKeys();
+    if(this.movingBird.pickedEgg == undefined){
+      const eggPickedUp = this.movingBird.checkEggCollision(this.eggs);
+      if (eggPickedUp) {
+        this.movingBird.addEgg(this.movingBird.pickedEgg);
+      }
+    }
+
     this.movingBird.update((this.speedFactor + this.acceleration));
     
   }
@@ -132,19 +132,12 @@ export class MyScene extends CGFscene {
     //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
     //this.panorama.display();
 
-    const now = Date.now();
-    const freq = 1;
-    const period = 2 * Math.PI / freq;
-    const elapsedTime = (now - this.time) / 1000;
-    const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period);    
+
     
 
     this.eggs.forEach(egg => {
       this.pushMatrix();
-      this.translate(egg.x,0,egg.z);
-      this.scale(0.3, 0.3, 0.3);
-      this.rotate(Math.PI/3, egg.rotationX,egg.rotationY,egg.rotationZ); //que angulo usar? tb altera lo de forma random??
-      this.eggText.apply();
+      this.translate(egg.x,egg.y,egg.z);
       egg.display();
       this.popMatrix();
     });
@@ -156,7 +149,6 @@ export class MyScene extends CGFscene {
     this.popMatrix();
 
     this.pushMatrix();
-    this.translate(0, oscillation*this.amplitude, 0);
     this.movingBird.display();  
     this.popMatrix();
 
@@ -205,6 +197,16 @@ export class MyScene extends CGFscene {
       keysPressed=true;
       this.acceleration = 0;
       this.movingBird.reset();
+    }
+    if (this.gui.isKeyPressed("KeyP")) {
+      text+=" P ";
+      keysPressed=true;
+      this.movingBird.descend();
+    }
+    if (this.gui.isKeyPressed("KeyO")) {
+      text+=" O ";
+      keysPressed=true;
+      this.movingBird.dropEgg();
     }
     if (keysPressed)
       console.log(text);

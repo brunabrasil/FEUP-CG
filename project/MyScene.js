@@ -54,7 +54,7 @@ export class MyScene extends CGFscene {
 
     this.enableTextures(true);
 
-    this.setUpdatePeriod(70);
+    this.setUpdatePeriod(20);
     // this.texture = new CGFtexture(this, "images/terrain.jpg");
     // this.appearance = new CGFappearance(this);
     // this.appearance.setTexture(this.texture);
@@ -132,12 +132,9 @@ export class MyScene extends CGFscene {
     //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
     //this.panorama.display();
 
-
-    
-
     this.eggs.forEach(egg => {
       this.pushMatrix();
-      this.translate(egg.x,egg.y,egg.z);
+      //this.translate(egg.x,egg.y,egg.z);
       egg.display();
       this.popMatrix();
     });
@@ -167,8 +164,8 @@ export class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyW")) {
       text+=" W ";
       keysPressed=true;
-      this.acceleration += 0.1;
-      this.movingBird.accelerate(0.1);
+      //this.acceleration += 0.05;
+      this.movingBird.accelerate(0.03);
     }
     if (this.gui.isKeyPressed("KeyS")) {
       text+=" S ";
@@ -180,7 +177,7 @@ export class MyScene extends CGFscene {
         this.acceleration = 0;
 
       }
-      this.movingBird.accelerate(-0.1);
+      this.movingBird.accelerate(-0.03);
     }
     if (this.gui.isKeyPressed("KeyA")) {
       text+=" A ";

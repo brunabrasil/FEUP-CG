@@ -33,8 +33,10 @@ export class MyBird extends CGFobject {
 
         this.featherText = new CGFtexture(this.scene, "images/feathers.jpg");
         this.bodyAppearance = new CGFappearance(this.scene);
-        this.bodyAppearance.setAmbient(0.1, 0.1, 0, 1);
+        this.bodyAppearance.setAmbient(0.1, 0.1, 0.1, 1);
         this.bodyAppearance.setDiffuse(0.8, 0.8, 0.8, 1);
+        this.bodyAppearance.setSpecular(0.8, 0.8, 0.8, 1);
+
         this.bodyAppearance.setTexture(this.featherText);
         this.bodyAppearance.setTextureWrap('REPEAT');
 
@@ -97,7 +99,6 @@ export class MyBird extends CGFobject {
         const period = (2 * Math.PI / freq);
         const elapsedTime = ((now - this.time) / 1000)/2;
         let speedWing = 1 + this.scene.movingBird.speed;
-        console.log(this.scene.movingBird.speed);
         const oscillation = Math.sin(elapsedTime * 2 * this.scene.speedFactor * speedWing + Math.PI / period);
 
         this.scene.pushMatrix();

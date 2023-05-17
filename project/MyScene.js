@@ -37,7 +37,7 @@ export class MyScene extends CGFscene {
     this.terrain = new MyTerrain(this);
     this.nest = new MyNest(this, 10, 7, 2);
 
-    this.billboard = new MyBillboard(this);
+    this.billboard = new MyBillboard(this, 3,3,3);
 
     this.eggs = [];
 
@@ -151,8 +151,10 @@ export class MyScene extends CGFscene {
 
     this.pushMatrix();
     this.terrain.display(); 
+    //this.panorama.display();
+    this.billboard.display(1,1,2);
     this.popMatrix(); 
-    this.billboard.display();
+    //this.billboard.display(3,3,3);
 
     // ---- END Primitive drawing section
   }

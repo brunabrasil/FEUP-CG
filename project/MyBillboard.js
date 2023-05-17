@@ -13,7 +13,7 @@ export class MyBillboard extends CGFobject {
     initMaterials(scene) {
 
         this.treeText = new CGFappearance(scene);
-        const textures = ["images/billboardtree4.png", "images/billboardtree2.png", "images/billboardtree3.png"];
+        const textures = ["images/billboardtree.png", "images/billboardtree2.png", "images/billboardtree3.png"];
         const index = Math.floor(Math.random() * textures.length);
         this.treeText.loadTexture(textures[index]);
         this.treeText.setTextureWrap('REPEAT', 'REPEAT');

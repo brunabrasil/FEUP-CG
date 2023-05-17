@@ -26,9 +26,13 @@ export class MyBirdEgg extends CGFobject {
     this.rotationY = Math.floor(Math.random() * 2);
     this.rotationZ = Math.floor(Math.random() * 2);
 
+    this.inParabolicThrow = false;
+    this.time = undefined
+
     this.materials();
 
     this.initBuffers();
+
 
   }
   materials() {
@@ -83,12 +87,44 @@ export class MyBirdEgg extends CGFobject {
     this.initGLBuffers();
   }
 
+  update() {
+    if (this.inParabolicThrow) {
+      if (this.time == undefined) this.time = 0
+      else this.time += 1
+      this.x = this.calculateBezierValue(this.startPos[0], this.controlPos[0], this.endPos[0], this.time / 33)
+      this.y = this.calculateBezierValue(this.startPos[1], this.controlPos[1], this.endPos[1], this.time / 33)
+      this.z = this.calculateBezierValue(this.startPos[2], this.controlPos[2], this.endPos[2], this.time / 33)
+      console.log(this.z)
+
+      if (this.time == 33) {
+        this.inParabolicThrow = false
+        this.time = undefined
+      }
+    }
+  }
+
+  setParabolicThrow(endPos) {
+
+    this.inParabolicThrow = true;
+    this.startPos = [this.x, this.y, this.z]
+    this.endPos = endPos;
+
+    let yControl;
+    if (this.startPos[1] - this.endPos[1] > 5) yControl = (this.startPos[1] - this.endPos[1]) / 2;
+    else yControl = (this.startPos[1] - this.endPos[1]) / 2 + 2;
+    this.controlPos = [(this.startPos[0] + this.endPos[0]) / 2, yControl, (this.startPos[2] + this.endPos[2]) / 2]
+  }
+
+  calculateBezierValue(p0, p1, p2, t) {
+    return Math.pow(1 - t, 2) * p0 + 2 * (1 - t) * t * p1 + Math.pow(t, 2) * p2;
+  }
+
   display() {
     this.scene.pushMatrix();
+    this.scene.translate(this.x, this.y, this.z);
     this.scene.scale(0.3, 0.3, 0.3);
     this.scene.rotate(Math.PI/3, this.rotationX, this.rotationY, this.rotationZ); //que angulo usar? tb altera lo de forma random??
     this.eggText.apply();
-
     super.display()
     this.scene.popMatrix()
   }

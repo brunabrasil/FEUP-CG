@@ -33,7 +33,6 @@ export class MyCylinder extends CGFobject {
 
                 this.vertices.push(ca,sa, j/this.stacks);
                 this.vertices.push(ca,sa, (j+1)/this.stacks);
-                console.log(this.vertices);
                 //v0=4*1 v1=4*1+1 v2=4*1+2 v3=4*1+3
                 if(i != 0){
                     this.indices.push((2*i-1) + (4*j*this.slices), (2*i+1)+ (4*j*this.slices), 2*i+ (4*j*this.slices), 

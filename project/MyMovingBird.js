@@ -21,7 +21,7 @@ export class MyMovingBird extends CGFobject {
     this.scaleFactor = 1;
 
     this.pickedEgg = undefined;
-    this.eggs = [];
+    this.eggs = []; //eggs nest
     this.carryingEgg = false;
     this.droppingEgg = false;
     this.eggStartTime = undefined;
@@ -29,14 +29,15 @@ export class MyMovingBird extends CGFobject {
     this.time = Date.now();
     this.clickTime = null;
 
+    this.droppingEgg = undefined;
   }
-  update(t) {
+  
+  update(val) {
 
     this.position[0] += this.speed * Math.sin(this.orientationAngle) * this.scene.speedFactor; //x
     this.position[2] += this.speed * Math.cos(this.orientationAngle) * this.scene.speedFactor;//z
-  
 
-    if (this.droppingEgg) {
+    /* if (this.droppingEgg) {
       const t = (performance.now() - this.eggStartTime) / 1000; // time in seconds
       const g = -9.8; // gravity in m/s^2
       const v0 = 3; // initial velocity in m/s (adjust as needed)
@@ -52,8 +53,13 @@ export class MyMovingBird extends CGFobject {
         this.egg = null;
         this.isDroppingEgg = false;
       }
+    } */
+    if(this.droppingEgg){
+      this.droppingEgg.update();
+
     }
   }
+
   moveBird(){
     const now = Date.now();
     const freq = 1;
@@ -76,6 +82,7 @@ export class MyMovingBird extends CGFobject {
         const descendSpeed = descendHeight / descendTime; // Speed to descend per second
         const descendDistance = descendSpeed * elapsedPTime; // Distance to descend based on elapsed time
         this.position[1] = 3 - descendDistance; // Update the bird's y position
+
       } else if (elapsedPTime <= descendTime + ascendTime) {
         const ascendHeight = 3; // Height to ascend to (position[1] = 3)
         const ascendSpeed = ascendHeight / ascendTime; // Speed to ascend per second
@@ -87,13 +94,14 @@ export class MyMovingBird extends CGFobject {
         this.descendFlag = false; // Reset the descend flag
       }
     }
-
+  
   }
 
   turn(val) {
     val < 0 ? this.rotationRight = true : this.rotationLeft = true;
     this.orientationAngle += val;
   }
+
   accelerate(val) {
     if(this.speed + val < 0){
       this.speed = 0;
@@ -103,16 +111,19 @@ export class MyMovingBird extends CGFobject {
       this.speed += val;
     }
   }
+
   descend(){
     this.descendFlag = true;  
     this.clickTime = Date.now();
   }
+
   reset() {
-      this.position = [0,3,0];
-      this.orientationAngle = 0;
-      this.speed = 0;
-      this.scene.speedFactor = 1;
+    this.position = [0,3,0];
+    this.orientationAngle = 0;
+    this.speed = 0;
+    this.scene.speedFactor = 1;
   }
+
   checkEggCollision(eggs) {
     // Get the bird's position
     const birdPos = this.position;
@@ -136,49 +147,57 @@ export class MyMovingBird extends CGFobject {
       // If the distance is within a tolerance margin, pick up the egg
       if (this.pickedEgg != undefined) {
         eggs.splice(eggs.indexOf(this.pickedEgg), 1); // Remove the egg from the scene
-        return true; // Return true to indicate that an egg was picked up
+        return true; // Return true if an egg was picked up
       }
     }
 
     return false; // Return false if no egg was picked up
   }
+
+  //add egg to nest
   addEgg(egg) {
     this.eggs.push(egg);
   }
+
   dropEgg(){
-    if(this.carryingEgg){
+    if(this.pickedEgg){
+
       const distance = vec3.distance(this.position, [this.scene.nest.x, this.scene.nest.y, this.scene.nest.z]);
-      if (distance > this.nest.radius) return; //hmm nao sei se isto a bem nao
-      this.droppingEgg = true;
-      this.eggStartTime = performance.now();
-      this.eggCurrentPos = [this.position[0], this.position[1], this.position[2]];
+      if (distance > this.scene.nest.radius+2) return; //hmm nao sei se isto a bem nao
+      this.droppingEgg = this.pickedEgg;
+      this.droppingEgg.setParabolicThrow([0,0,0])
+      this.pickedEgg = undefined;
     }
   }
+
   eggPosition(){
-    for (const egg of this.eggs) {
-      
-      egg.x = this.position[0];
-      egg.y = this.position[1]-0.8;
-      egg.z = this.position[2]+0.08;
-      console.log(egg.y);
-    }
+    this.pickedEgg.x = this.position[0];
+    this.pickedEgg.y = this.position[1]-0.8;
+    this.pickedEgg.z = this.position[2]+0.08;
   }
  
   display() {
-    this.eggPosition();
-    // Draw the bird's eggs
-    for (const egg of this.eggs) {
+    this.moveBird();
+
+    // Draw the bird's egg
+    if (this.droppingEgg != undefined) {
       this.scene.pushMatrix();
-      this.scene.translate(egg.x, egg.y, egg.z); // Assuming the egg is positioned at the center of the base
-      egg.display();
+      this.droppingEgg.display();
       this.scene.popMatrix();
     }
-    this.moveBird();
-    this.scene.pushMatrix()
-    this.scene.translate(this.position[0], this.position[1], this.position[2]);
+    // Draw the bird's egg
+    if (this.pickedEgg != undefined) {
+      this.eggPosition();
+      this.scene.pushMatrix();
+      //this.scene.translate(this.pickedEgg.x, this.pickedEgg.y, this.pickedEgg.z); // Assuming the egg is positioned at the center of the base
+      this.pickedEgg.display();
+      this.scene.popMatrix();
+    }
 
-    this.scene.rotate(this.orientationAngle, 0, 1, 0);
+    this.scene.pushMatrix();
     this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+    this.scene.translate(this.position[0], this.position[1], this.position[2]);
+    this.scene.rotate(this.orientationAngle, 0, 1, 0);
     this.bird.display();
     this.scene.popMatrix();
   }

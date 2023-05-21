@@ -23,13 +23,13 @@ export class MyMovingBird extends CGFobject {
     this.pickedEgg = undefined;
     this.eggs = []; //eggs nest
     this.carryingEgg = false;
-    this.droppingEgg = false;
+
+    this.droppingEgg = undefined;
     this.eggStartTime = undefined;
 
     this.time = Date.now();
     this.clickTime = null;
 
-    this.droppingEgg = undefined;
   }
   
   update(val) {
@@ -37,24 +37,7 @@ export class MyMovingBird extends CGFobject {
     this.position[0] += this.speed * Math.sin(this.orientationAngle) * this.scene.speedFactor; //x
     this.position[2] += this.speed * Math.cos(this.orientationAngle) * this.scene.speedFactor;//z
 
-    /* if (this.droppingEgg) {
-      const t = (performance.now() - this.eggStartTime) / 1000; // time in seconds
-      const g = -9.8; // gravity in m/s^2
-      const v0 = 3; // initial velocity in m/s (adjust as needed)
-      const x = this.eggCurrentPos[0] + v0 * Math.cos(Math.PI/4) * t;
-      const y = this.eggCurrentPos[1] + v0 * Math.sin(Math.PI/4) * t + 0.5 * g * t * t;
-      const z = this.eggCurrentPos[2] + v0 * Math.cos(Math.PI/4) * t;
-    
-      this.egg.setPosition(x, y, z);
-    
-      if (y <= this.nestHeight) {
-        // Egg has landed in nest
-        this.nest.addEgg(this.egg);
-        this.egg = null;
-        this.isDroppingEgg = false;
-      }
-    } */
-    if(this.droppingEgg){
+    if(this.droppingEgg != undefined){
       this.droppingEgg.update();
 
     }
@@ -165,7 +148,7 @@ export class MyMovingBird extends CGFobject {
       const distance = vec3.distance(this.position, [this.scene.nest.x, this.scene.nest.y, this.scene.nest.z]);
       if (distance > this.scene.nest.radius+2) return; //hmm nao sei se isto a bem nao
       this.droppingEgg = this.pickedEgg;
-      this.droppingEgg.setParabolicThrow([0,0,0])
+      this.droppingEgg.setParabolicThrow([2,0,0])
       this.pickedEgg = undefined;
     }
   }

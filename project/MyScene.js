@@ -130,7 +130,6 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-    //this.panorama.display();
 
     this.eggs.forEach(egg => {
       this.pushMatrix();
@@ -151,10 +150,9 @@ export class MyScene extends CGFscene {
 
     this.pushMatrix();
     this.terrain.display(); 
-    //this.panorama.display();
-    this.billboard.display(1,1,2);
+    this.panorama.display();
+    //this.billboard.display(1,1,2);
     this.popMatrix(); 
-    //this.billboard.display(3,3,3);
 
     // ---- END Primitive drawing section
   }

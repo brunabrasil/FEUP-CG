@@ -117,7 +117,6 @@ export class MyScene extends CGFscene {
     if (this.displayAxis) this.axis.display();
 
     //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-    //this.panorama.display();
 
     this.eggs.forEach(egg => {
       this.pushMatrix();

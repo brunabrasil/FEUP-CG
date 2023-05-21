@@ -33,6 +33,8 @@ export class MyBirdEgg extends CGFobject {
 
     this.initBuffers();
 
+    this.droppingEgg = 0;
+    this.endPos = undefined;
 
   }
   materials() {
@@ -89,30 +91,50 @@ export class MyBirdEgg extends CGFobject {
 
   update() {
     if (this.inParabolicThrow) {
-      if (this.time == undefined) this.time = 0
-      else this.time += 1
-      this.x = this.calculateBezierValue(this.startPos[0], this.controlPos[0], this.endPos[0], this.time / 33)
-      this.y = this.calculateBezierValue(this.startPos[1], this.controlPos[1], this.endPos[1], this.time / 33)
-      this.z = this.calculateBezierValue(this.startPos[2], this.controlPos[2], this.endPos[2], this.time / 33)
-      console.log(this.z)
+      const duration = 25.0;
 
-      if (this.time == 33) {
-        this.inParabolicThrow = false
-        this.time = undefined
+      if (this.time == undefined){
+        this.time = 0;
+      } 
+      else this.time += 1;
+
+      this.startPos = [this.x, this.y, this.z]
+
+      let yControl;
+      if (this.startPos[1] - this.endPos[1] > 5){
+        yControl = (this.startPos[1] - this.endPos[1]) / 2;
+      } 
+      else{
+        yControl = (this.startPos[1] - this.endPos[1]) / 2 + 2;
+        //This ensures that the egg follows a higher trajectory when the vertical distance is small.
+      } 
+
+      const controlPos = [
+        (this.startPos[0] + this.endPos[0]) / 2,
+        yControl,
+        (this.startPos[2] + this.endPos[2]) / 2
+      ];
+
+      const bezierX = this.calculateBezierValue(this.startPos[0], controlPos[0], this.endPos[0], this.time / duration);
+      const bezierY = this.calculateBezierValue(this.startPos[1], controlPos[1], this.endPos[1], this.time / duration);
+      const bezierZ = this.calculateBezierValue(this.startPos[2], controlPos[2], this.endPos[2], this.time / duration);
+      
+      this.x = bezierX;
+      this.y = bezierY;
+      this.z = bezierZ;
+  
+      if (this.time >= duration) {
+        this.inParabolicThrow = false;
+        this.time = undefined;
       }
     }
   }
+  
 
   setParabolicThrow(endPos) {
 
     this.inParabolicThrow = true;
-    this.startPos = [this.x, this.y, this.z]
     this.endPos = endPos;
-
-    let yControl;
-    if (this.startPos[1] - this.endPos[1] > 5) yControl = (this.startPos[1] - this.endPos[1]) / 2;
-    else yControl = (this.startPos[1] - this.endPos[1]) / 2 + 2;
-    this.controlPos = [(this.startPos[0] + this.endPos[0]) / 2, yControl, (this.startPos[2] + this.endPos[2]) / 2]
   }
 
   calculateBezierValue(p0, p1, p2, t) {

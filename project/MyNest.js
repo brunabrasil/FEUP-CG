@@ -16,12 +16,13 @@ export class MyNest extends CGFobject {
         this.stacks = stacks;
         this.radius = radius;
         this.eggs = [];
-        this.eggPositions = [
-          [0, 0, 0],
-          [1, 0, 0],
-          [0, 0, 1],
-          [-1, 0, 0]
-        ];
+        this.eggPositions = [];
+
+        this.eggPositions.push({position: [1,1,1], occupied: false});
+        this.eggPositions.push({position: [1,1,1], occupied: false});
+        this.eggPositions.push({position: [1,1,1], occupied: false});
+        this.eggPositions.push({position: [1,1,1], occupied: false});
+
         this.initBuffers();
         // this.placeEggs();
         
@@ -91,6 +92,14 @@ export class MyNest extends CGFobject {
       this.eggs.push(egg);
     }
 
+    getNestPosition(){
+      for (const position of this.eggPositions) {
+        if (!position.occupied) {
+          return position;
+        }
+      }
+      return null;
+    }
 
     /**
      * Called when user interacts with GUI to change object's complexity.

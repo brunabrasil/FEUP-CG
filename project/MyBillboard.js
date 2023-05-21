@@ -22,7 +22,6 @@ export class MyBillboard extends CGFobject {
             this.randomValue = Math.random() * 2;
         }
 
-
     }
 
 
@@ -33,7 +32,7 @@ export class MyBillboard extends CGFobject {
         this.scene.translate(x, y, z);
       
         const cameraPos = this.scene.camera.getViewMatrix();
-      
+
         const front = vec3.fromValues(-cameraPos[2], -cameraPos[6], -cameraPos[10]);
       
         vec3.normalize(front, front);

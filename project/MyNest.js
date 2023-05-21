@@ -9,9 +9,9 @@ import {CGFobject} from '../lib/CGF.js';
 export class MyNest extends CGFobject {
     constructor(scene, slices, stacks, radius) {
         super(scene);
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
+        this.x = 25;
+        this.y = 12.5;
+        this.z = -4;
         this.slices = slices;
         this.stacks = stacks;
         this.radius = radius;
@@ -23,6 +23,7 @@ export class MyNest extends CGFobject {
           [-1, 0, 0]
         ];
         this.initBuffers();
+        // this.placeEggs();
         
     }
     initBuffers() {
@@ -38,9 +39,9 @@ export class MyNest extends CGFobject {
           for (var long = 0; long <= this.slices; long++) {
             let theta = long * alpha;
       
-            let x = this.radius * Math.cos(theta) * Math.sin(beta * lat);
-            let y = this.radius * Math.cos(beta * lat);
-            let z = this.radius * Math.sin(theta) * Math.sin(beta * lat);
+            let x = this.radius * Math.cos(theta) * Math.sin(beta * lat) + this.x;
+            let y = this.radius * Math.cos(beta * lat) + this.y;
+            let z = this.radius * Math.sin(theta) * Math.sin(beta * lat) + this.z;
       
             this.vertices.push(z, y, x);
             this.normals.push(x, y, z);
@@ -68,6 +69,21 @@ export class MyNest extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+
+    // placeEggs() {
+    // const randomizePosition = true; // Set to false if you want to use chosen positions
+
+    // for (let i = 0; i < 5; i++) {
+    //   const egg = {}; // Create an egg object
+    //   egg.x = this.x + (randomizePosition ? Math.random() * 2 - 1 : this.eggPositions[i % this.eggPositions.length][0]);
+    //   egg.y = this.y + 0.01; // Adjust the y position to rest on the flat area of the terrain
+    //   egg.z = this.z + (randomizePosition ? Math.random() * 2 - 1 : this.eggPositions[i % this.eggPositions.length][2]);
+    //   egg.rotation = Math.random() * 2 * Math.PI; // Random rotation
+
+    //   this.eggs.push(egg);
+    // }
+    //}
+
     addEgg(egg) {
       egg.x = this.x + this.eggPositions[this.eggs.length].x;
       egg.y = this.y + this.eggPositions[this.eggs.length].y;
@@ -90,3 +106,5 @@ export class MyNest extends CGFobject {
 
     
 }
+
+

@@ -11,18 +11,18 @@ export class MyTreeGroupPatch extends CGFobject {
     }
 
     initBillboards(scene) {  
-        let z = 0;
-        let y = -13;
+        let z = -50;
+        let y = -10;
         for(let i = 0; i < 3; i++){
-            let x = 0;
+            let x = 58;
             for(let j = 0; j < 3; j++){
                 let randomX = Math.random()*(4-2) + 2;
                 let randomZ = Math.random()*(4-2) + 2;
                 let tree = new MyBillboard(scene, true);
                 this.trees.push({tree: tree, x: x + randomX, y: y, z: z + randomZ}); 
-                x += 10;
+                x += 8;
             }
-            z += 10;
+            z += 8;
         }
     }
 

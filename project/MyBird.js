@@ -50,8 +50,8 @@ export class MyBird extends CGFobject {
         //Yellow
         this.yellow = new CGFappearance(this.scene);
         this.yellow.setAmbient(1, 1, 0, 1);
-        this.yellow.setDiffuse(0, 0, 0, 1);
-        this.yellow.setSpecular(1, 1, 0, 1);
+        this.yellow.setDiffuse(0.2, 0.8, 0.8, 1);
+        this.yellow.setSpecular(1, 1, 1, 1);
         this.yellow.setShininess(10.0);
         //Blue
         this.blue = new CGFappearance(this.scene);

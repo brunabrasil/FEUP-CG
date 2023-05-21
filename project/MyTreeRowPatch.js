@@ -11,15 +11,15 @@ export class MyTreeRowPatch extends CGFobject {
     }
 
     initBillboards(scene) {  
-        let z = 0;
-        let y = -13;
+        let z = 35;
+        let y = -10;
         let x = 0;
         for(let i = 0; i < 6; i++){
             let randomX = Math.random()*(4-2) + 2;
             let randomZ = Math.random()*(4-2) + 2;
             let tree = new MyBillboard(scene, true);
             this.trees.push({tree: tree, x: x + randomX, y: y, z: z + randomZ}); 
-            x += 10;
+            x += 7;
         }
     }
 

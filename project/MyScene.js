@@ -3,11 +3,12 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } fr
 import { MyBird } from "./MyBird.js";
 import { MyMovingBird } from "./MyMovingBird.js";
 import { MyPanorama } from "./MyPanorama.js";
-import { MySphere } from "./MySphere.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyNest } from "./MyNest.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyBillboard } from "./MyBillboard.js";
+import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
+import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
 
 /**
  * MyScene
@@ -36,9 +37,9 @@ export class MyScene extends CGFscene {
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     this.terrain = new MyTerrain(this);
     this.nest = new MyNest(this, 10, 7, 2);
-
     this.billboard = new MyBillboard(this, 3,3,3);
-
+    this.treeGroupPatch = new MyTreeGroupPatch(this);
+    this.treeRowPatch = new MyTreeRowPatch(this);
     this.eggs = [];
 
     // Loop to create each egg
@@ -150,9 +151,12 @@ export class MyScene extends CGFscene {
 
     this.pushMatrix();
     this.terrain.display(); 
-    this.panorama.display();
-    //this.billboard.display(1,1,2);
+    //this.panorama.display();
+    //this.billboard.display(-50,-13,-20);
+    //this.treeGroupPatch.display();
+    this.treeRowPatch.display();
     this.popMatrix(); 
+    
 
     // ---- END Primitive drawing section
   }

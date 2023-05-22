@@ -18,10 +18,10 @@ export class MyNest extends CGFobject {
         this.eggs = [];
         this.eggPositions = [];
 
-        this.eggPositions.push({position: [1,1,1], occupied: false});
-        this.eggPositions.push({position: [1,1,1], occupied: false});
-        this.eggPositions.push({position: [1,1,1], occupied: false});
-        this.eggPositions.push({position: [1,1,1], occupied: false});
+        this.eggPositions.push({position: [1,0,0], occupied: false});
+        this.eggPositions.push({position: [0,0,1], occupied: false});
+        this.eggPositions.push({position: [1,0,1], occupied: false});
+        this.eggPositions.push({position: [2,0,1], occupied: false});
 
         this.initBuffers();
         
@@ -69,20 +69,37 @@ export class MyNest extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+    update(){
+      this.eggs.forEach(egg => {
+        egg.update();
+      });
+    }
     addEgg(egg) {
-      egg.x = this.x + this.eggPositions[this.eggs.length].x;
-      egg.y = this.y + this.eggPositions[this.eggs.length].y;
-      egg.z = this.z + this.eggPositions[this.eggs.length].z;
       this.eggs.push(egg);
     }
 
     getNestPosition(){
       for (const position of this.eggPositions) {
         if (!position.occupied) {
+          position.occupied = true;
           return position;
         }
       }
       return null;
+    }
+
+    display(){
+      this.scene.pushMatrix();
+      this.scene.rotate(Math.PI, 0, 0, 1);
+      super.display();
+      this.scene.popMatrix();
+
+      this.eggs.forEach(egg => {
+        this.scene.pushMatrix();
+        egg.display();
+        this.scene.popMatrix();
+      });
+      
     }
 
     /**

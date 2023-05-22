@@ -33,14 +33,19 @@ export class MyMovingBird extends CGFobject {
   }
   
   update(val) {
+    this.bird.update();
 
     this.position[0] += this.speed * Math.sin(this.orientationAngle) * this.scene.speedFactor; //x
     this.position[2] += this.speed * Math.cos(this.orientationAngle) * this.scene.speedFactor;//z
 
     if(this.droppingEgg != undefined){
       this.droppingEgg.update();
-
     }
+
+
+  }
+  setDroppingEgg(){
+    this.droppingEgg = null;
   }
 
   moveBird(){
@@ -148,7 +153,9 @@ export class MyMovingBird extends CGFobject {
       const distance = vec3.distance(this.position, [this.scene.nest.x, this.scene.nest.y, this.scene.nest.z]);
       if (distance > this.scene.nest.radius+2) return; //hmm nao sei se isto a bem nao
       this.droppingEgg = this.pickedEgg;
-      this.droppingEgg.setParabolicThrow([2,0,0])
+      let pos = this.scene.nest.getNestPosition().position;
+      console.log("pos: ", pos)
+      this.droppingEgg.setParabolicThrow(pos)
       this.pickedEgg = undefined;
     }
   }

@@ -30,11 +30,12 @@ export class MyBird extends CGFobject {
 
         this.time = Date.now();
         this.amplitude = 0.3;
+        this.oscillation;
 
         this.featherText = new CGFtexture(this.scene, "images/feathers.jpg");
         this.bodyAppearance = new CGFappearance(this.scene);
         this.bodyAppearance.setAmbient(0.1, 0.1, 0.1, 1);
-        this.bodyAppearance.setDiffuse(0.8, 0.8, 0.8, 1);
+        this.bodyAppearance.setDiffuse(1, 1, 1, 1);
         this.bodyAppearance.setSpecular(0.8, 0.8, 0.8, 1);
 
         this.bodyAppearance.setTexture(this.featherText);
@@ -50,7 +51,7 @@ export class MyBird extends CGFobject {
         //Yellow
         this.yellow = new CGFappearance(this.scene);
         this.yellow.setAmbient(1, 1, 0, 1);
-        this.yellow.setDiffuse(0, 0, 0, 1);
+        this.yellow.setDiffuse(0.3, 0.5, 0.3, 1);
         this.yellow.setSpecular(1, 1, 0, 1);
         this.yellow.setShininess(10.0);
         //Blue
@@ -63,8 +64,8 @@ export class MyBird extends CGFobject {
         //Black
         this.black = new CGFappearance(this.scene);
         this.black.setAmbient(0, 0, 0, 1);
-        this.black.setDiffuse(0, 0, 0, 1);
-        this.black.setSpecular(0, 0, 1, 1);
+        this.black.setDiffuse(0.2, 0.2, 0.2, 1);
+        this.black.setSpecular(0.2, 0.2, 0.2, 1);
         this.black.setShininess(10.0);
 
         //Red
@@ -91,16 +92,21 @@ export class MyBird extends CGFobject {
         this.orange.setShininess(10.0);
     }
 	
-	display() {
- 
-        this.initMaterials();
+    update(){
         const now = Date.now();
         const freq = 1;
         const period = (2 * Math.PI / freq);
-        const elapsedTime = ((now - this.time) / 1000)/2;
+        const elapsedTime = ((now - this.time) / 1000);// /2
         let speedWing = 1 + this.scene.movingBird.speed;
-        const oscillation = Math.sin(elapsedTime * 2 * this.scene.speedFactor * speedWing + Math.PI / period);
+        this.oscillation = Math.sin(elapsedTime * 2 * this.scene.speedFactor * speedWing + Math.PI / period);
+        console.log(speedWing);
+    }
+	display() {
+ 
+        this.initMaterials();
+        
 
+        //right foot
         this.scene.pushMatrix();
         this.scene.translate(0.2,-0.5, 0.1);
         this.scene.scale(0.07,0.4,0.06);
@@ -108,18 +114,18 @@ export class MyBird extends CGFobject {
         this.foot.display();
         this.scene.popMatrix();
 
+        //left foot
         this.scene.pushMatrix();
         this.scene.translate(-0.2,-0.5, 0.1);
         this.scene.scale(0.07,0.4,0.06);
-        this.orange.apply();
-
+        this.black.apply();
         this.foot.display();
         this.scene.popMatrix();
 
         //right wing
         this.scene.pushMatrix();
-        this.scene.rotate(oscillation * Math.PI/3 / 4, 0, 0, 1);
-        this.scene.translate(0.5, 0, 0.3, 1);
+        this.scene.rotate(this.oscillation * Math.PI/3 / 4, 0, 0, 1);
+        this.scene.translate(0.4, 0, 0.3, 1);
         this.scene.scale(0.25, 0.5, 0.25);
         this.yellow.apply();
 
@@ -128,8 +134,8 @@ export class MyBird extends CGFobject {
 
         //left wing
         this.scene.pushMatrix();
-        this.scene.rotate(oscillation * -Math.PI/3 / 4, 0, 0, 1);
-        this.scene.translate(-0.5, 0, 0.3, 1);
+        this.scene.rotate(this.oscillation * -Math.PI/3 / 4, 0, 0, 1);
+        this.scene.translate(-0.4, 0, 0.3, 1);
         this.scene.scale(-0.25, 0.5, 0.25);
         this.wing.display();
         this.scene.popMatrix();

@@ -10,11 +10,7 @@ export class MyInterface extends CGFinterface {
     }
 
     init(application) {
-        // call CGFinterface init
         super.init(application);
-
-        // init GUI. For more information on the methods, check:
-        // https://github.com/dataarts/dat.gui/blob/master/API.md
         this.gui = new dat.GUI();
 
         //Checkbox element in GUI
@@ -50,6 +46,4 @@ export class MyInterface extends CGFinterface {
         // returns true if a key is marked as pressed, false otherwise
         return this.activeKeys[keyCode] || false;
     }
-
-
 }

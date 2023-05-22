@@ -95,7 +95,7 @@ export class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0.2,-0.5, 0.1);
         this.scene.scale(0.07,0.4,0.06);
-        this.orange.apply();
+        this.black.apply();
         this.foot.display();
         this.scene.popMatrix();
 
@@ -139,14 +139,14 @@ export class MyBird extends CGFobject {
         this.leftEye.display();
         this.scene.popMatrix(); 
 
-        //Head
+        //head
         this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 1.1);
         this.bodyAppearance.apply();
         this.head.display();
         this.scene.popMatrix();
 
-        //Bico
+        //beak
         this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 1.5);
         this.scene.scale(0.2, 0.2, 0.3);

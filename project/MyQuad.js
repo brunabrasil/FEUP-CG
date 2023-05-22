@@ -53,6 +53,5 @@ export class MyQuad extends CGFobject {
         this.initBuffers();
         this.initNormalVizBuffers();
     }
-
 }
 

@@ -106,7 +106,7 @@ export class MyMovingBird extends CGFobject {
   }
 
   reset() {
-    this.position = [0,3,0];
+    this.position = [0,-10,0];
     this.orientationAngle = 0;
     this.speed = 0;
     this.scene.speedFactor = 1;
@@ -186,6 +186,7 @@ export class MyMovingBird extends CGFobject {
 
     this.scene.pushMatrix();
     this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+    this.scene.scale(2, 2, 2);
     this.scene.translate(this.position[0], this.position[1], this.position[2]);
     this.scene.rotate(this.orientationAngle, 0, 1, 0);
     this.bird.display();

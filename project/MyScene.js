@@ -59,10 +59,14 @@ export class MyScene extends CGFscene {
     this.earth.setTexture(this.earthText);
     this.earth.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.panoramaText = new CGFtexture(this, "images/panorama4.jpg");
+    // this.panoramaText = new CGFtexture(this, "images/panorama4.jpg");
+    // this.panorama4 = new CGFappearance(this);
+    // this.panorama4.setTexture(this.panoramaText);
+    // this.panorama4.setTextureWrap('REPEAT', 'REPEAT');
     this.panorama4 = new CGFappearance(this);
-    this.panorama4.setTexture(this.panoramaText);
+    this.panorama4.loadTexture("images/panorama4.jpg");
     this.panorama4.setTextureWrap('REPEAT', 'REPEAT');
+    
 
     this.nText = new CGFtexture(this, "images/nest2.png");
     this.nestText = new CGFappearance(this);

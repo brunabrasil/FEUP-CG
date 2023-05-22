@@ -10,8 +10,8 @@ export class MyNest extends CGFobject {
     constructor(scene, slices, stacks, radius) {
         super(scene);
         this.x = 25;
-        this.y = 12.5;
-        this.z = -4;
+        this.y = 9;
+        this.z = -5;
         this.slices = slices;
         this.stacks = stacks;
         this.radius = radius;

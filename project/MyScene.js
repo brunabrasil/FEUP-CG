@@ -35,7 +35,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     this.terrain = new MyTerrain(this);
-    this.nest = new MyNest(this, 20, 7, 2);
+    this.nest = new MyNest(this, 20, 7, 5);
     this.treeGroupPatch = new MyTreeGroupPatch(this);
     this.treeRowPatch = new MyTreeRowPatch(this);
     this.eggs = [];
@@ -47,7 +47,7 @@ export class MyScene extends CGFscene {
     }
 
     //Objects connected to MyInterface
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.speedFactor = 1;
     this.acceleration = 0;
 
@@ -78,48 +78,29 @@ export class MyScene extends CGFscene {
 
   }
   initLights() {
-    this.lights[0].setPosition(15, 0, 5, 1);
+    this.lights[0].setPosition(1, 1, 1, 1);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[0].setAmbient(0.5, 0.5, 0.5, 1.0);
+    this.lights[0].setAmbient(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
     this.lights[0].update(); 
 
-    /* this.lights[0].setPosition(10, -55, 20, 1);
-    this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[0].setAmbient(0.2,0.2,0.2,1.0);
-    this.lights[0].enable();
-    this.lights[0].update(); */
-
-    this.lights[1].setPosition(-10, -55, 20, 1);
+    this.lights[1].setPosition(10, 10, -10, 20);
     this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[1].setAmbient(0.2,0.2,0.2,1.0);
+    this.lights[1].setAmbient(5.0, 5.0, 5.0, 1.0);
     this.lights[1].enable();
-    this.lights[1].update();
+    this.lights[1].update(); 
 
-    
-  this.lights[2].setPosition(10, 10, -20, 1);
+    this.lights[2].setPosition(-5, 0, 5, 1);
     this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[2].setAmbient(0.6,0.6,0.6,1.0);
+    this.lights[2].setAmbient(1.0, 1.0, 1.0, 1.0);
     this.lights[2].enable();
-    this.lights[2].update();
-    /*
+    this.lights[2].update(); 
 
-     this.lights[3].setPosition(-10, 30, 20, 1);
-    this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[3].setAmbient(0.2,0.2,0.2,1.0);
-    this.lights[3].enable();
-    this.lights[3].update(); 
-
-    this.lights[4].setPosition(-10, 10, 10, 1);
-    this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[4].setAmbient(0.5,0.5,0.5,1.0);
-    this.lights[4].enable();
-    this.lights[4].update(); */
   }
   initCameras() {
     this.camera = new CGFcamera(
-      0.5,
-      0.5,
+      0.9,
+      0.9,
       1000,
       vec3.fromValues(50, 10, 15),
       vec3.fromValues(0, 0, 0)

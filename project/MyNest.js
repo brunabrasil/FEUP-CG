@@ -10,23 +10,22 @@ export class MyNest extends CGFobject {
     constructor(scene, slices, stacks, radius) {
         super(scene);
         this.x = 25;
-        this.y = 12.5;
-        this.z = -4;
+        this.y = 9.5;
+        this.z = -5;
         this.slices = slices;
         this.stacks = stacks;
         this.radius = radius;
         this.eggs = [];
         this.eggPositions = [];
 
-        this.eggPositions.push({position: [1,0,0], occupied: false});
-        this.eggPositions.push({position: [0,0,1], occupied: false});
-        this.eggPositions.push({position: [1,0,1], occupied: false});
-        this.eggPositions.push({position: [2,0,1], occupied: false});
+        this.eggPositions.push({position: [5,-10,23], occupied: false});
+        this.eggPositions.push({position: [5,-10,25], occupied: false});
+        this.eggPositions.push({position: [6,-10,24], occupied: false});
+        this.eggPositions.push({position: [3,-10,23], occupied: false});
 
         this.initBuffers();
-        // this.placeEggs();
-        
     }
+    
     initBuffers() {
         this.vertices = [];
         this.indices = [];

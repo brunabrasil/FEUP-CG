@@ -12,7 +12,7 @@ export class MyTreeGroupPatch extends CGFobject {
 
     initBillboards(scene) {  
         let z = -50;
-        let y = -10;
+        let y = -8;
         for(let i = 0; i < 3; i++){
             let x = 58;
             for(let j = 0; j < 3; j++){
@@ -20,9 +20,9 @@ export class MyTreeGroupPatch extends CGFobject {
                 let randomZ = Math.random()*(4-2) + 2;
                 let tree = new MyBillboard(scene, true);
                 this.trees.push({tree: tree, x: x + randomX, y: y, z: z + randomZ}); 
-                x += 8;
+                x += 10;
             }
-            z += 8;
+            z += 10;
         }
     }
 

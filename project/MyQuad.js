@@ -18,7 +18,6 @@ export class MyQuad extends CGFobject {
 			-0.5, -0.5, 0	//3
 		];
 
-		//Counter-clockwise reference of vertices
 		this.indices = [
             0, 2, 1,
             1, 2, 3,
@@ -45,12 +44,8 @@ export class MyQuad extends CGFobject {
 			1, 1
 		];
 
-		//The defined indices (and corresponding vertices)
-		//will be read in groups of three to draw triangles
 		this.primitiveType = this.scene.gl.TRIANGLES;
-
 		this.initGLBuffers();
-		// this.initNormalVizBuffers();
 	}
 
 	updateBuffers(){

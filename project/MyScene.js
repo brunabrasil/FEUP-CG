@@ -4,7 +4,6 @@ import { MyPanorama } from "./MyPanorama.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyNest } from "./MyNest.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
-import { MyBillboard } from "./MyBillboard.js";
 import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
 import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
 
@@ -35,19 +34,19 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.movingBird = new MyMovingBird(this, 0, [0,3,0]);
     this.terrain = new MyTerrain(this);
-    this.nest = new MyNest(this, 20, 7, 2);
+    this.nest = new MyNest(this, 20, 7, 4);
     this.treeGroupPatch = new MyTreeGroupPatch(this);
     this.treeRowPatch = new MyTreeRowPatch(this);
     this.eggs = [];
 
     // Loop to create each egg
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       const egg = new MyBirdEgg(this, 10, 10, 1, 1, 1.7);
       this.eggs.push(egg);
     }
 
     //Objects connected to MyInterface
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.speedFactor = 1;
     this.acceleration = 0;
 
@@ -59,67 +58,42 @@ export class MyScene extends CGFscene {
     this.earth.setTexture(this.earthText);
     this.earth.setTextureWrap('REPEAT', 'REPEAT');
 
-    // this.panoramaText = new CGFtexture(this, "images/panorama4.jpg");
-    // this.panorama4 = new CGFappearance(this);
-    // this.panorama4.setTexture(this.panoramaText);
-    // this.panorama4.setTextureWrap('REPEAT', 'REPEAT');
     this.panorama4 = new CGFappearance(this);
     this.panorama4.loadTexture("images/panorama4.jpg");
     this.panorama4.setTextureWrap('REPEAT', 'REPEAT');
     
-
-    this.nText = new CGFtexture(this, "images/nest2.png");
+    this.nText = new CGFtexture(this, "images/nest.png");
     this.nestText = new CGFappearance(this);
     this.nestText.setTexture(this.nText);
     this.nestText.setTextureWrap('REPEAT', 'REPEAT');
-
 
     this.panorama = new MyPanorama(this, this.panorama4);
 
   }
   initLights() {
-    this.lights[0].setPosition(15, 0, 5, 1);
+    this.lights[0].setPosition(1, 1, 1, 1);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[0].setAmbient(0.5, 0.5, 0.5, 1.0);
+    this.lights[0].setAmbient(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
     this.lights[0].update(); 
 
-    /* this.lights[0].setPosition(10, -55, 20, 1);
-    this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[0].setAmbient(0.2,0.2,0.2,1.0);
-    this.lights[0].enable();
-    this.lights[0].update(); */
-
-    this.lights[1].setPosition(-10, -55, 20, 1);
+    this.lights[1].setPosition(10, 10, -10, 20);
     this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[1].setAmbient(0.2,0.2,0.2,1.0);
+    this.lights[1].setAmbient(5.0, 5.0, 5.0, 1.0);
     this.lights[1].enable();
-    this.lights[1].update();
+    this.lights[1].update(); 
 
-    
-  this.lights[2].setPosition(10, 10, -20, 1);
+    this.lights[2].setPosition(-5, 0, 5, 1);
     this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[2].setAmbient(0.6,0.6,0.6,1.0);
+    this.lights[2].setAmbient(1.0, 1.0, 1.0, 1.0);
     this.lights[2].enable();
-    this.lights[2].update();
-    /*
+    this.lights[2].update(); 
 
-     this.lights[3].setPosition(-10, 30, 20, 1);
-    this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[3].setAmbient(0.2,0.2,0.2,1.0);
-    this.lights[3].enable();
-    this.lights[3].update(); 
-
-    this.lights[4].setPosition(-10, 10, 10, 1);
-    this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[4].setAmbient(0.5,0.5,0.5,1.0);
-    this.lights[4].enable();
-    this.lights[4].update(); */
   }
   initCameras() {
     this.camera = new CGFcamera(
-      0.5,
-      0.5,
+      0.9,
+      0.9,
       1000,
       vec3.fromValues(50, 10, 15),
       vec3.fromValues(0, 0, 0)
@@ -153,11 +127,8 @@ export class MyScene extends CGFscene {
 
     if (this.displayAxis) this.axis.display();
 
-    //this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-
     this.eggs.forEach(egg => {
       this.pushMatrix();
-      //this.translate(egg.x,egg.y,egg.z);
       egg.display();
       this.popMatrix();
     });
@@ -183,7 +154,7 @@ export class MyScene extends CGFscene {
   checkKeys() {
     var text="Keys pressed: ";
     var keysPressed=false;
-    // Check for key codes e.g. in https://keycode.info/
+    
     if (this.gui.isKeyPressed("KeyW")) {
       text+=" W ";
       keysPressed=true;

@@ -3,7 +3,6 @@ import { MyParallelogram } from "./MyParallelogram.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MySphere } from "./MySphere.js";
 import { MyPyramid } from "./MyPyramid.js";
-import { MyCylinder } from "./MyCylinder.js";
 import { MyWing } from "./MyWing.js";
 import { MyTail } from "./MyTail.js";
 import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
@@ -40,11 +39,6 @@ export class MyBird extends CGFobject {
 
         this.bodyAppearance.setTexture(this.featherText);
         this.bodyAppearance.setTextureWrap('REPEAT');
-
-        this.eyeText = new CGFtexture(this.scene, "images/chicken-eye.jpeg");
-        this.eyeAppearance = new CGFappearance(this.scene);
-        this.eyeAppearance.setTexture(this.eyeText);
-        //this.eyeAppearance.setTextureWrap('REPEAT');
 	}
 
     initMaterials() {
@@ -54,6 +48,7 @@ export class MyBird extends CGFobject {
         this.yellow.setDiffuse(0.3, 0.5, 0.3, 1);
         this.yellow.setSpecular(1, 1, 0, 1);
         this.yellow.setShininess(10.0);
+        
         //Blue
         this.blue = new CGFappearance(this.scene);
         this.blue.setAmbient(0, 0, 1, 1);
@@ -64,7 +59,7 @@ export class MyBird extends CGFobject {
         //Black
         this.black = new CGFappearance(this.scene);
         this.black.setAmbient(0, 0, 0, 1);
-        this.black.setDiffuse(0.2, 0.2, 0.2, 1);
+        this.black.setDiffuse(0.1, 0.1, 0.1, 1);
         this.black.setSpecular(0.2, 0.2, 0.2, 1);
         this.black.setShininess(10.0);
 
@@ -74,15 +69,6 @@ export class MyBird extends CGFobject {
         this.red.setDiffuse(0, 0, 0, 1);
         this.red.setSpecular(1, 0, 0, 1);
         this.red.setShininess(10.0);
-
-
-        //Red
-        this.red = new CGFappearance(this.scene);
-        this.red.setAmbient(0.5,0,0, 1);
-        this.red.setDiffuse(0, 0, 0, 1);
-        this.red.setSpecular(1, 0, 0, 1);
-        this.red.setShininess(10.0);
-
 
         //Orange
         this.orange = new CGFappearance(this.scene);
@@ -105,7 +91,6 @@ export class MyBird extends CGFobject {
  
         this.initMaterials();
         
-
         //right foot
         this.scene.pushMatrix();
         this.scene.translate(0.2,-0.5, 0.1);
@@ -118,7 +103,7 @@ export class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(-0.2,-0.5, 0.1);
         this.scene.scale(0.07,0.4,0.06);
-        this.black.apply();
+        this.orange.apply();
         this.foot.display();
         this.scene.popMatrix();
 

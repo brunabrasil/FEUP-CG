@@ -23,19 +23,12 @@ export class MyTail extends CGFobject {
 	
 	display() {
         this.initMaterials();
-<<<<<<< HEAD
-=======
-            
->>>>>>> 1667f2c7992dc64e1eb634f4e13f7c98d31d3bf6
+
         //Tail
         this.scene.pushMatrix();
         this.scene.scale(0.25, 1, 1);
         this.tail.display();
-<<<<<<< HEAD
-        this.scene.popMatrix(); 
-=======
         this.scene.popMatrix();  
->>>>>>> 1667f2c7992dc64e1eb634f4e13f7c98d31d3bf6
 	}
 
 

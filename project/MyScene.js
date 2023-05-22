@@ -83,9 +83,41 @@ export class MyScene extends CGFscene {
   initLights() {
     this.lights[0].setPosition(15, 0, 5, 1);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[0].setAmbient(10, 10, 10, 1.0);
+    this.lights[0].setAmbient(0.5, 0.5, 0.5, 1.0);
     this.lights[0].enable();
-    this.lights[0].update();
+    this.lights[0].update(); 
+
+    /* this.lights[0].setPosition(10, -55, 20, 1);
+    this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.lights[0].setAmbient(0.2,0.2,0.2,1.0);
+    this.lights[0].enable();
+    this.lights[0].update(); */
+
+    this.lights[1].setPosition(-10, -55, 20, 1);
+    this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.lights[1].setAmbient(0.2,0.2,0.2,1.0);
+    this.lights[1].enable();
+    this.lights[1].update();
+
+    
+  this.lights[2].setPosition(10, 10, -20, 1);
+    this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.lights[2].setAmbient(0.6,0.6,0.6,1.0);
+    this.lights[2].enable();
+    this.lights[2].update();
+    /*
+
+     this.lights[3].setPosition(-10, 30, 20, 1);
+    this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.lights[3].setAmbient(0.2,0.2,0.2,1.0);
+    this.lights[3].enable();
+    this.lights[3].update(); 
+
+    this.lights[4].setPosition(-10, 10, 10, 1);
+    this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.lights[4].setAmbient(0.5,0.5,0.5,1.0);
+    this.lights[4].enable();
+    this.lights[4].update(); */
   }
   initCameras() {
     this.camera = new CGFcamera(
@@ -110,6 +142,7 @@ export class MyScene extends CGFscene {
         this.movingBird.addEgg(this.movingBird.pickedEgg);
       }
     }
+    this.nest.update();
 
     this.movingBird.update((this.speedFactor + this.acceleration));
     
@@ -140,7 +173,6 @@ export class MyScene extends CGFscene {
     });
     
     this.pushMatrix();
-    this.rotate(Math.PI, 0, 0, 1);
     this.nestText.apply();
     this.nest.display();  
     this.popMatrix();
@@ -154,7 +186,7 @@ export class MyScene extends CGFscene {
     //this.panorama.display();
     //this.billboard.display(-50,-13,-20);
     //this.treeGroupPatch.display();
-    this.treeRowPatch.display();
+    //this.treeRowPatch.display();
     this.popMatrix(); 
     
 

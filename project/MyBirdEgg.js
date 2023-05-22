@@ -90,6 +90,9 @@ export class MyBirdEgg extends CGFobject {
   }
 
   update() {
+
+    console.log("pos: ", [this.x, this.y, this.z]);
+
     if (this.inParabolicThrow) {
       const duration = 25.0;
 
@@ -122,17 +125,28 @@ export class MyBirdEgg extends CGFobject {
       this.x = bezierX;
       this.y = bezierY;
       this.z = bezierZ;
-  
+
+
       if (this.time >= duration) {
+
+        let ovo = this.scene.movingBird.droppingEgg;
+
+        this.scene.nest.addEgg(ovo);
+      
+        this.scene.movingBird.droppingEgg = undefined;
+
         this.inParabolicThrow = false;
         this.time = undefined;
+      
       }
+      
     }
+
   }
-  
+
 
   setParabolicThrow(endPos) {
-
+    
     this.inParabolicThrow = true;
     this.endPos = endPos;
   }

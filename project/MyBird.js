@@ -95,7 +95,7 @@ export class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0.2,-0.5, 0.1);
         this.scene.scale(0.07,0.4,0.06);
-        this.black.apply();
+        this.orange.apply();
         this.foot.display();
         this.scene.popMatrix();
 

@@ -24,7 +24,7 @@ export class MyBillboard extends CGFobject {
         this.treeText.setTextureWrap('REPEAT', 'REPEAT');
 
         if(this.randomScale){
-            this.randomValue = Math.random() * 2.5;
+            this.randomValue = Math.random() * 2;
         }
     }
 

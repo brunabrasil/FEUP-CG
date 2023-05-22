@@ -56,7 +56,7 @@ export class MyMovingBird extends CGFobject {
     const oscillation = Math.sin(elapsedTime * 2 + Math.PI / period);  
 
     if(!this.descendFlag){
-      this.position[1] = 3+oscillation*0.3;
+      this.position[1] = 1+oscillation*0.3;
     }
 
     const elapsedPTime = (now - this.clickTime) / 1000;
@@ -66,17 +66,17 @@ export class MyMovingBird extends CGFobject {
     // Check if the bird is descending
     if (this.descendFlag) {
       if (elapsedPTime <= descendTime) {
-        const descendHeight = 3; // Height to descend to (position[1] = 0)
+        const descendHeight = 13; // Height to descend to (position[1] = 0)
         const descendSpeed = descendHeight / descendTime; // Speed to descend per second
         const descendDistance = descendSpeed * elapsedPTime; // Distance to descend based on elapsed time
-        this.position[1] = 3 - descendDistance; // Update the bird's y position
+        this.position[1] = 1 - descendDistance; // Update the bird's y position
 
       } else if (elapsedPTime <= descendTime + ascendTime) {
-        const ascendHeight = 3; // Height to ascend to (position[1] = 3)
+        const ascendHeight = 13; // Height to ascend to (position[1] = 3)
         const ascendSpeed = ascendHeight / ascendTime; // Speed to ascend per second
         const ascendElapsedTime = elapsedPTime - descendTime; // Elapsed time during the ascend phase
         const ascendDistance = ascendSpeed * ascendElapsedTime; // Distance to ascend based on elapsed time
-        this.position[1] = ascendDistance; // Update the bird's y position
+        this.position[1] = -12+ascendDistance; // Update the bird's y position
       } else {
         // End of descend and ascend phases
         this.descendFlag = false; // Reset the descend flag
@@ -106,7 +106,7 @@ export class MyMovingBird extends CGFobject {
   }
 
   reset() {
-    this.position = [0,3,0];
+    this.position = [0,1,0];
     this.orientationAngle = 0;
     this.speed = 0;
     this.scene.speedFactor = 1;
@@ -125,7 +125,7 @@ export class MyMovingBird extends CGFobject {
         dist = vec3.distance(birdPos, eggPos);
         //pick up closest to bird
         if(dist < closestDistance){
-          if (dist < 3) {
+          if (dist < 8) {
             this.pickedEgg = egg; // Store the reference to the picked up egg in the bird object
             closestDistance = dist;
           }
@@ -149,9 +149,9 @@ export class MyMovingBird extends CGFobject {
 
   dropEgg(){
     if(this.pickedEgg){
-
-      const distance = vec3.distance(this.position, [this.scene.nest.x, this.scene.nest.y, this.scene.nest.z]);
-      if (distance > this.scene.nest.radius+2) return; //hmm nao sei se isto a bem nao
+      console.log("aaka")
+      const distance = vec3.distance(this.position, [this.scene.nest.z, this.scene.nest.y, this.scene.nest.x]);
+      if (distance > this.scene.nest.radius+30) return;
       this.droppingEgg = this.pickedEgg;
       let pos = this.scene.nest.getNestPosition().position;
       console.log("pos: ", pos)
@@ -162,7 +162,7 @@ export class MyMovingBird extends CGFobject {
 
   eggPosition(){
     this.pickedEgg.x = this.position[0];
-    this.pickedEgg.y = this.position[1]-0.8;
+    this.pickedEgg.y = this.position[1]-1;
     this.pickedEgg.z = this.position[2]+0.08;
   }
  
@@ -185,7 +185,6 @@ export class MyMovingBird extends CGFobject {
     }
 
     this.scene.pushMatrix();
-    this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
     this.scene.translate(this.position[0], this.position[1], this.position[2]);
     this.scene.rotate(this.orientationAngle, 0, 1, 0);
     this.bird.display();

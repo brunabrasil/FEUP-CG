@@ -20,7 +20,7 @@ export class MyBirdEgg extends CGFobject {
     this.scaleBottom = scaleBottom;
     this.x = Math.random() * (25 - 5) + 10;
     this.z = Math.random() * (30 - 10) + 15;
-    this.y = -14.3;
+    this.y = -13.9;
     this.initialPos = [this.x, this.y, this.z];
     this.rotationX = Math.floor(Math.random() * 2);
     this.rotationY = Math.floor(Math.random() * 2);
@@ -158,7 +158,7 @@ export class MyBirdEgg extends CGFobject {
   display() {
     this.scene.pushMatrix();
     this.scene.translate(this.x, this.y, this.z);
-    this.scene.scale(0.3, 0.3, 0.3);
+    this.scene.scale(0.5, 0.5, 0.5);
     this.scene.rotate(Math.PI/3, this.rotationX, this.rotationY, this.rotationZ); //que angulo usar? tb altera lo de forma random??
     this.eggText.apply();
     super.display()

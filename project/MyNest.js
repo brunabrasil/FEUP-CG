@@ -9,9 +9,9 @@ import {CGFobject} from '../lib/CGF.js';
 export class MyNest extends CGFobject {
     constructor(scene, slices, stacks, radius) {
         super(scene);
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
+        this.x = 25;
+        this.y = 12.5;
+        this.z = -4;
         this.slices = slices;
         this.stacks = stacks;
         this.radius = radius;
@@ -24,6 +24,7 @@ export class MyNest extends CGFobject {
         this.eggPositions.push({position: [2,0,1], occupied: false});
 
         this.initBuffers();
+        // this.placeEggs();
         
     }
     initBuffers() {
@@ -39,9 +40,9 @@ export class MyNest extends CGFobject {
           for (var long = 0; long <= this.slices; long++) {
             let theta = long * alpha;
       
-            let x = this.radius * Math.cos(theta) * Math.sin(beta * lat);
-            let y = this.radius * Math.cos(beta * lat);
-            let z = this.radius * Math.sin(theta) * Math.sin(beta * lat);
+            let x = this.radius * Math.cos(theta) * Math.sin(beta * lat) + this.x;
+            let y = this.radius * Math.cos(beta * lat) + this.y;
+            let z = this.radius * Math.sin(theta) * Math.sin(beta * lat) + this.z;
       
             this.vertices.push(z, y, x);
             this.normals.push(x, y, z);
@@ -116,3 +117,5 @@ export class MyNest extends CGFobject {
 
     
 }
+
+

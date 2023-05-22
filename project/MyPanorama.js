@@ -14,11 +14,12 @@ export class MyPanorama extends CGFobject {
 
     display(){
 
-        this.sphere = new MySphere(this.scene, 30, 30, 200, true);
+        this.sphere = new MySphere(this.scene, 50, 50, 600, true);
 
         this.scene.pushMatrix();
+        this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2]);
         this.text.apply();
-
+        
         this.sphere.display();
         this.scene.popMatrix();
         

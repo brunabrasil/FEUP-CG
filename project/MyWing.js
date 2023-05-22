@@ -14,11 +14,6 @@ export class MyWing extends CGFobject {
 
         this.smallTriangle = new MyTriangleSmall(this.scene);
         this.parallelogram = new MyParallelogram(this.scene);
-        
-        this.featherText = new CGFtexture(this.scene, "images/feather-red.jpg");
-        this.bodyAppearance = new CGFappearance(this.scene);
-        this.bodyAppearance.setTexture(this.featherText);
-        this.bodyAppearance.setTextureWrap('REPEAT');
 	}
 
     initMaterials() {
@@ -49,8 +44,6 @@ export class MyWing extends CGFobject {
 
         //Parallelogram
         this.scene.pushMatrix();
-        //this.scene.scale(0.25, 0.5, 1);
-        //this.scene.translate(0.5, 0, 0.5);
         this.scene.rotate((Math.PI)/2, 1, 0, 0);
         this.scene.rotate((Math.PI)/4, 0, 0, 1);
         this.parallelogram.display();
@@ -64,7 +57,6 @@ export class MyWing extends CGFobject {
         this.scene.rotate(-(Math.PI)/2, 1, 0, 0);
         this.smallTriangle.display();
         this.scene.popMatrix();
-        
 	}
 
 

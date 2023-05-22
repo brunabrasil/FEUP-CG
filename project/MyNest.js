@@ -5,6 +5,7 @@ import {CGFobject} from '../lib/CGF.js';
  * @param scene - Reference to MyScene object
  * @param slices - number of divisions around the Y axis
  * @param stacks - number of divisions along the Y axis
+ * @param radius - radius of the sphere
 */
 export class MyNest extends CGFobject {
     constructor(scene, slices, stacks, radius) {
@@ -24,9 +25,8 @@ export class MyNest extends CGFobject {
         this.eggPositions.push({position: [2,0,1], occupied: false});
 
         this.initBuffers();
-        // this.placeEggs();
-        
     }
+    
     initBuffers() {
         this.vertices = [];
         this.indices = [];

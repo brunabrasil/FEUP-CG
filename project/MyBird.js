@@ -3,7 +3,6 @@ import { MyParallelogram } from "./MyParallelogram.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MySphere } from "./MySphere.js";
 import { MyPyramid } from "./MyPyramid.js";
-import { MyCylinder } from "./MyCylinder.js";
 import { MyWing } from "./MyWing.js";
 import { MyTail } from "./MyTail.js";
 import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
@@ -40,11 +39,6 @@ export class MyBird extends CGFobject {
 
         this.bodyAppearance.setTexture(this.featherText);
         this.bodyAppearance.setTextureWrap('REPEAT');
-
-        this.eyeText = new CGFtexture(this.scene, "images/chicken-eye.jpeg");
-        this.eyeAppearance = new CGFappearance(this.scene);
-        this.eyeAppearance.setTexture(this.eyeText);
-        //this.eyeAppearance.setTextureWrap('REPEAT');
 	}
 
     initMaterials() {
@@ -146,14 +140,14 @@ export class MyBird extends CGFobject {
         this.leftEye.display();
         this.scene.popMatrix(); 
 
-        //Head
+        //head
         this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 1.1);
         this.bodyAppearance.apply();
         this.head.display();
         this.scene.popMatrix();
 
-        //Bico
+        //beak
         this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 1.5);
         this.scene.scale(0.2, 0.2, 0.3);

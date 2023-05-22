@@ -23,7 +23,6 @@ export class MyParallelogram extends CGFobject {
 			3, 1, 0		//7
 		];
 
-		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2,
 			1, 3, 2,
@@ -48,10 +47,7 @@ export class MyParallelogram extends CGFobject {
 			0, 0, -1,	// 3 back
 		];
 
-		//The defined indices (and corresponding vertices)
-		//will be read in groups of three to draw triangles
 		this.primitiveType = this.scene.gl.TRIANGLES;
-
 		this.initGLBuffers();
 	}
 }

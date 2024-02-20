@@ -2,7 +2,7 @@
 
 > 2022/2023 - 3rd year, 2nd semester
 
-Project and exercises for the Computer Graphics ([COmputação Gráfica](https://sigarra.up.pt/feup/pt/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=501689 "course page")) course.
+Project and exercises for the Computer Graphics ([Computação Gráfica](https://sigarra.up.pt/feup/pt/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=501689 "course page")) course.
 
 ## Group T08G08
 | Name             | Number    | E-Mail             |
